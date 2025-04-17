@@ -90,5 +90,21 @@ namespace RtanRPG.RPG
                 Console.ResetColor();
             }
         }
+        public static class LordingHelper
+        {
+            public static void Lording(int time)
+            {
+                if (time <= 0)
+                {
+                    Console.WriteLine(time + "!");
+                }
+                else
+                {
+                    TypingHelper.TypingVar("", time + "...", 50);
+                    Thread.Sleep(800);
+                    Lording(time - 1);
+                }
+            }
+        }
     }
 }

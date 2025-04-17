@@ -78,13 +78,5 @@ namespace RtanRPG.RPG
                 Console.WriteLine();
             }
         }
-
-        public class Inventory
-        {
-            public List<string> inventory = new List<string>
-            {
-                
-            };
-        }
     }
 }

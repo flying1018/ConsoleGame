@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+using System.Net.Sockets;
 using System.Reflection.Metadata;
 
 namespace RtanRPG.RPG
@@ -30,7 +32,7 @@ namespace RtanRPG.RPG
             "탈출_스크롤", "신앙_스크롤", "파괴_스크롤", "의문의_스크롤", "활력_스크롤", "철벽_스크롤"
         };
 
-        public class WeaponInfo
+        public class WeaponInfo // 무기 정보
         {
             public string Name;
             public int Power;
@@ -74,7 +76,7 @@ namespace RtanRPG.RPG
             };
         }
 
-        public class ArmorInfo
+        public class ArmorInfo // 방어구 정보
         {
             public string Name;
             public int Power;
@@ -117,7 +119,7 @@ namespace RtanRPG.RPG
             };
         }
 
-        public class AccessoryInfo
+        public class AccessoryInfo // 악세서리 정보
         {
             public string Name;
             public int Power;
@@ -150,19 +152,19 @@ namespace RtanRPG.RPG
             };
         }
 
-        public class PotionInfo
+        public class PotionInfo // 포션 정보
         {
-            string Name;
-            int Hp;
-            int Cost;
-            bool Purification;
+            public string Name;
+            public int Hp;
+            public int Cost;
+            public bool Purification;
             public PotionInfo(string name, int hp, int cost, bool purification)
             {
                 Name = name;
                 Hp = hp;
                 Cost = cost;
                 Purification = purification;
-            }         
+            }
         }
         public class PostionDB
         {
@@ -176,11 +178,11 @@ namespace RtanRPG.RPG
             };
         }
 
-        public class ScrollInfo
+        public class ScrollInfo // 스크롤 정보
         {
-            string Name;
-            int Cost;
-            bool Special;
+            public string Name;
+            public int Cost;
+            public bool Special;
             public ScrollInfo(string name, int cost, bool special)
             {
                 Name = name;
@@ -198,6 +200,27 @@ namespace RtanRPG.RPG
                 {4, new ScrollInfo(Scrolls[3], 100, true)}, // 의문의 스크롤
                 {5, new ScrollInfo(Scrolls[4], 70, true)}, // 활력 스크롤
                 {6, new ScrollInfo(Scrolls[5], 70, true)}, // 철벽 스크롤
+            };
+        }
+
+        public struct ItemInfo
+        {
+            public string Name;
+            public int ItemIndex;
+
+            public ItemInfo(string name, int index)
+            {
+                Name = name;
+                ItemIndex = index;
+            }
+        }
+
+        public class InventoryInfo
+        {
+            ItemInfo item;
+            public List<ItemInfo> inventory = new List<ItemInfo>
+            {
+                
             };
         }
     }

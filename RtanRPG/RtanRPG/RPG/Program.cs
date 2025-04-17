@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks.Dataflow;
 using static RtanRPG.RPG.GameHelper.ColorHelper;
 using static RtanRPG.RPG.GameHelper.TypingHelper;
+using static RtanRPG.RPG.GameHelper.LordingHelper;
 
 namespace RtanRPG.RPG
 {
@@ -10,13 +11,14 @@ namespace RtanRPG.RPG
         {
             Console.Title = "Rtan RPG";
 
-            bool selectLoop = true;
+            bool selectLoop = true; // 캐릭터 생성 관리 불리언 변수
 
             string playerName = "";
             Profile.Job playerJob = Profile.Job.Warrior; // 초기 세팅
             string textJob = "";
+
+            GameManager game = new GameManager();
             
-            Profile.PlayerInfo playerProfile = new Profile.PlayerInfo(playerName, playerJob, textJob);
 
             while (selectLoop)
             {
@@ -68,7 +70,7 @@ namespace RtanRPG.RPG
                 Console.WriteLine();
 
                 Thread.Sleep(1500);
-                do
+                do // 직업 선택루프
                 {
                     jobSelect = true;
                     TypingText("", "당신이 선택할 ");
@@ -142,7 +144,7 @@ namespace RtanRPG.RPG
                         default:
                             TypingText("red", "오류 발생!");
                             TypingText("", ", 게임을 종료합니다.");
-                            return;
+                            goto finishGame;
                     }
 
                     TypingText($"", "당신이 선택한 직업은 \'");
@@ -185,7 +187,10 @@ namespace RtanRPG.RPG
                 Console.WriteLine();
                 Thread.Sleep(1000);
 
-                playerProfile.ShowStats();
+                game = new GameManager();
+                game.InputPlayer(playerName, playerJob, textJob);
+
+                game.ShowPlayerStats();
                 Console.WriteLine();
                 while (true)
                 {
@@ -196,8 +201,8 @@ namespace RtanRPG.RPG
                     if (input == "y" || input == "Y")
                     {
                         selectLoop = false;
-                        TypingText("","잠시후 게임이 시작합니다");
-                        TypingText("","....",400);
+                        TypingText("", "잠시후 게임이 시작합니다");
+                        TypingText("", "....", 400);
                         break;
                     }
                     else if (input == "n" || input == "N")
@@ -213,10 +218,10 @@ namespace RtanRPG.RPG
                 }
             }
 
-            
-        
-        
-        
+
+
+
+            finishGame:;
         }
     }
 }

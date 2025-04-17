@@ -70,7 +70,6 @@ namespace RtanRPG.RPG
                 {10, new MonsterInfo(easyM[10], Types.Type.land, 100, 20, 15, 45, 45, false )}, // 스톤골렘
                 {11, new MonsterInfo(easyM[11], Types.Type.fire, 80, 20, 10, 45, 45, true )}, // 파이어골렘
             };
-
             public static readonly Dictionary<int, MonsterInfo> FirstHardMon = new Dictionary<int, MonsterInfo>()
             {
                 {1, new MonsterInfo(firstHardM[0], Types.Type.normal, 65, 20, 10, 40, 50, false )}, // 임프
