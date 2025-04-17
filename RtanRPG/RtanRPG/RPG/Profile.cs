@@ -20,6 +20,10 @@ namespace RtanRPG.RPG
             public int Defense;
             public int Coin;
             public int Exp;
+            public int Hp;
+            public int MaxHp;
+            public bool isFascination;
+            public bool isAwe;
             public PlayerInfo(string name, Job playerJob, string textJob)
             {
                 Name = name;
@@ -27,6 +31,8 @@ namespace RtanRPG.RPG
                 PlayerJob = playerJob;
                 Level = 1;
                 Exp = 0;
+                isFascination = false;
+                isAwe = false;
 
                 switch (playerJob) // 직업별 능력치 배분
                 {
@@ -34,20 +40,24 @@ namespace RtanRPG.RPG
                         Power = 10;
                         Defense = 10;
                         Coin = 0;
+                        MaxHp = 50; 
                         break;
 
                     case Job.Mage:
                         Power = 20;
                         Defense = 2;
                         Coin = 150;
+                        MaxHp = 35;
                         break;
 
                     case Job.Thief:
                         Power = 15;
                         Defense = 5;
                         Coin = 400;
+                        MaxHp = 40;
                         break;
                 }
+                Hp = MaxHp;
 
             }
             public void ShowStats()

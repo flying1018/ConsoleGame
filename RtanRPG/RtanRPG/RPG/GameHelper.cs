@@ -1,6 +1,6 @@
 namespace RtanRPG.RPG
 {
-    public static class GameHelper
+    internal static class GameHelper
     {
         public static class ColorHelper
         {
@@ -62,7 +62,6 @@ namespace RtanRPG.RPG
                     break;
             }
         }
-
         public static class TypingHelper
         {
             public static void TypingText(string textColor, string text, int speed = 45) // 밀리초
@@ -103,6 +102,103 @@ namespace RtanRPG.RPG
                     TypingHelper.TypingVar("", time + "...", 50);
                     Thread.Sleep(800);
                     Lording(time - 1);
+                }
+            }
+        }
+        public static class ItemHelper
+        {
+            public static void EqItem(GameManager game, Item.ItemType type, int index)
+            {
+                switch (type)
+                {
+                    case Item.ItemType.Weapon:
+                        game.Player.Power += Item.WeaponDB.weapon[index].Power;
+                        game.Player.Defense += Item.WeaponDB.weapon[index].Defense;
+                        break;
+
+                    case Item.ItemType.Armor:
+                        game.Player.MaxHp += Item.ArmorDB.armor[index].MaxHp;
+                        game.Player.Defense += Item.ArmorDB.armor[index].Defense;
+                        game.Player.Power += Item.ArmorDB.armor[index].Power;
+                        break;
+
+                    case Item.ItemType.Accessory:
+                        game.Player.Power += Item.AccessoryDB.accessory[index].Power;
+                        game.Player.Defense += Item.AccessoryDB.accessory[index].Defense;
+                        break;
+                    default:
+                        TypingHelper.TypingText("", "장착 할 수 없는 아이템입니다");
+                        break;
+                }
+            }
+
+            public static void UneqItem(GameManager game, Item.ItemType type, int index)
+            {
+                switch (type)
+                {
+                    case Item.ItemType.Weapon:
+                        game.Player.Power -= Item.WeaponDB.weapon[index].Power;
+                        game.Player.Defense -= Item.WeaponDB.weapon[index].Defense;
+                        break;
+
+                    case Item.ItemType.Armor:
+                        game.Player.MaxHp -= Item.ArmorDB.armor[index].MaxHp;
+                        game.Player.Defense -= Item.ArmorDB.armor[index].Defense;
+                        game.Player.Power -= Item.ArmorDB.armor[index].Power;
+                        break;
+
+                    case Item.ItemType.Accessory:
+                        game.Player.Power -= Item.AccessoryDB.accessory[index].Power;
+                        game.Player.Defense -= Item.AccessoryDB.accessory[index].Defense;
+                        break;
+                    default:
+                        TypingHelper.TypingText("", "장착 할 수 없는 아이템입니다");
+                        break;
+                }
+            }
+
+            public static void ItemToInven(Item.ItemType type, int index)
+            {
+                Item.ItemInfo dummy = new Item.ItemInfo();
+
+                switch (type)
+                {
+                    case Item.ItemType.Weapon:
+                        dummy.Type = type;
+                        dummy.Name = Item.WeaponDB.weapon[index].Name;
+                        dummy.Cost = Item.WeaponDB.weapon[index].Cost;
+                        Item.InventoryInfo.Inventory.Add(dummy);
+                        break;
+
+                    case Item.ItemType.Armor:
+                        dummy.Type = type;
+                        dummy.Name = Item.ArmorDB.armor[index].Name;
+                        dummy.Cost = Item.ArmorDB.armor[index].Cost;
+                        Item.InventoryInfo.Inventory.Add(dummy);
+                        break;
+
+                    case Item.ItemType.Accessory:
+                        dummy.Type = type;
+                        dummy.Name = Item.AccessoryDB.accessory[index].Name;
+                        dummy.Cost = Item.AccessoryDB.accessory[index].Cost;
+                        Item.InventoryInfo.Inventory.Add(dummy);
+                        break;
+
+                    case Item.ItemType.Potion:
+                        dummy.Type = type;
+                        dummy.Name = Item.PotionDB.potion[index].Name;
+                        dummy.Cost = Item.PotionDB.potion[index].Cost;
+                        Item.InventoryInfo.Inventory.Add(dummy);
+                        break;
+
+                    case Item.ItemType.Scroll:
+                        dummy.Type = type;
+                        dummy.Name = Item.ScrollDB.scroll[index].Name;
+                        dummy.Cost = Item.ScrollDB.scroll[index].Cost;
+                        Item.InventoryInfo.Inventory.Add(dummy);
+                        break;
+                    default:
+                        break;
                 }
             }
         }

@@ -6,6 +6,11 @@ namespace RtanRPG.RPG
 {
     internal static class Item
     {
+        public enum ItemType
+        {
+            Weapon, Armor, Accessory, Potion, Scroll
+        }
+
         public static List<string> Weapons = new List<string> // 무기
         {
             "모험가의_검", "모험가의_지팡이", "모험가의_단도", "양손_손도끼", "흑색_지팡이", "날카로운_단검",
@@ -166,15 +171,15 @@ namespace RtanRPG.RPG
                 Purification = purification;
             }
         }
-        public class PostionDB
+        public class PotionDB
         {
             public static readonly Dictionary<int, PotionInfo> potion = new Dictionary<int, PotionInfo>()
             {
                 {1, new PotionInfo(Potions[0], 30, 15, false)}, // 체력 물약
                 {2, new PotionInfo(Potions[1], 60, 30, false)}, // 상급 물약
-                {3, new PotionInfo(Potions[2], 0, 30, true)}, // 상태 회복약
-                {4, new PotionInfo(Potions[3], 100, 50, false)}, // 엘릭서
-                {5, new PotionInfo(Potions[4], 9999, 150, true)}, // 만병 통치약
+                {3, new PotionInfo(Potions[3], 100, 50, false)}, // 엘릭서
+                {4, new PotionInfo(Potions[4], 9999, 150, true)}, // 만병 통치약
+                {5, new PotionInfo(Potions[2], 0, 30, true)}, // 상태 회복약
             };
         }
 
@@ -203,25 +208,28 @@ namespace RtanRPG.RPG
             };
         }
 
-        public struct ItemInfo
+        public class ItemInfo
         {
+            public ItemType Type;
             public string Name;
-            public int ItemIndex;
-
-            public ItemInfo(string name, int index)
+            public int Cost;
+            public ItemInfo()
             {
+                Type = ItemType.Weapon;
+                Name = "";
+                Cost = -1;
+            }
+            public ItemInfo(ItemType type, string name, int cost)
+            {
+                Type = type;
                 Name = name;
-                ItemIndex = index;
+                Cost = cost;
             }
         }
 
         public class InventoryInfo
         {
-            ItemInfo item;
-            public List<ItemInfo> inventory = new List<ItemInfo>
-            {
-                
-            };
+            public static List<ItemInfo> Inventory = new List<ItemInfo>();
         }
     }
 }

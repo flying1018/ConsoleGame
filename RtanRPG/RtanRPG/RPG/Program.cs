@@ -144,7 +144,7 @@ namespace RtanRPG.RPG
                         default:
                             TypingText("red", "오류 발생!");
                             TypingText("", ", 게임을 종료합니다.");
-                            goto finishGame;
+                            return;
                     }
 
                     TypingText($"", "당신이 선택한 직업은 \'");
@@ -188,7 +188,7 @@ namespace RtanRPG.RPG
                 Thread.Sleep(1000);
 
                 game = new GameManager();
-                game.InputPlayer(playerName, playerJob, textJob);
+                game.NewPlayer(playerName, playerJob, textJob);
 
                 game.ShowPlayerStats();
                 Console.WriteLine();
@@ -221,7 +221,6 @@ namespace RtanRPG.RPG
 
 
 
-            finishGame:;
         }
     }
 }
