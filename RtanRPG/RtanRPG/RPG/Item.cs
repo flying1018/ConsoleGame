@@ -234,5 +234,26 @@ namespace RtanRPG.RPG
         {
             public List<ItemInfo> Inventory = new List<ItemInfo>();
         }
+        public static void ShowInventory()
+        {
+            Console.WriteLine("=== [보유 중인 아이템] ===");
+            for (int i = 0; i < game.PlayerInventory.Inventory.Count; i++)
+            {
+                var info = PlayerInventory.Inventory[i];
+                var item = ItemHelper.GetItem(info);
+
+                string itemName = item switch
+                {
+                    Item.WeaponInfo w => w.Name,
+                    Item.ArmorInfo a => a.Name,
+                    Item.AccessoryInfo ac => ac.Name,
+                    Item.PotionInfo p => p.Name,
+                    Item.ScrollInfo s => s.Name,
+                    _ => "알 수 없음"
+                };
+
+                Console.WriteLine($"[{i + 1}] {itemName} ({info.Type})");
+            }
+        }
     }
 }

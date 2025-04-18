@@ -64,7 +64,7 @@ namespace RtanRPG.RPG
         }
         public static class TypingHelper
         {
-            public static void TypingText(string textColor, string text, int speed = 45) // 밀리초
+            public static void TypingText(string textColor, string text, int speed = 60) // 밀리초
             {
                 SelectColor(textColor);
 
@@ -76,7 +76,7 @@ namespace RtanRPG.RPG
                 Console.ResetColor();
             }
 
-            public static void TypingVar(string textColor, object input, int speed = 45)
+            public static void TypingVar(string textColor, object input, int speed = 60)
             {
                 SelectColor(textColor);
                 string text = input.ToString();

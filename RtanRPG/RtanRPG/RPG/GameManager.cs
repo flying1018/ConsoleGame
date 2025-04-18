@@ -1,4 +1,5 @@
 using static RtanRPG.RPG.GameHelper.TypingHelper;
+using static RtanRPG.RPG.GameHelper.ItemHelper;
 
 namespace RtanRPG.RPG
 {
@@ -32,10 +33,6 @@ namespace RtanRPG.RPG
             Player.ShowStats();
         }
 
-        public void ShowPlayerInventory() // 플레이어 인벤토리 표시 함수
-        {
-
-        }
         public void LevelUp()
         {
             TypingText("green", "레벨업! ");
@@ -244,12 +241,63 @@ namespace RtanRPG.RPG
                 TypingText("", "이 함께하리..");
                 Console.WriteLine();
                 Thread.Sleep(1000);
-                
+
                 TypingText("", "주사위 결과 : ");
                 TypingVar("purple", diceNum);
                 Console.WriteLine();
             }
             return diceNum;
+        }
+
+        public Events.StartEvent[] RandomEvent(string eventType)
+        {
+            Random random = new Random();
+
+            switch (eventType)
+            {
+                case "Start":
+                    int[] ranEvent = { -1, -2, -3 };
+                    Events.StartEvent[] Choice = { Events.StartEvent.Belliever, Events.StartEvent.Humanism, Events.StartEvent.Warmonger };
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        do
+                        {
+                            ranEvent[i] = random.Next(1, 6);
+                            Choice[i] = (Events.StartEvent)ranEvent[i];
+                        } while (ranEvent[0] == ranEvent[1] && ranEvent[1] == ranEvent[2]);
+
+                        TypingVar("", i + 1);
+                        TypingText("", ":");
+                        TypingVar("", Events.startEvent[Choice[i]]);
+                        Console.WriteLine();
+                        Console.WriteLine();
+                    }
+                    return new Events.StartEvent[] { Choice[0], Choice[1], Choice[2] };
+
+                case "RandomRoom":
+                    return null;
+
+                default:
+                    return null;
+
+            }
+
+
+        }
+        public void AddItem(GameManager game, Item.ItemType type, int index)
+        {
+            ItemToInven(game, type, index);
+        }
+
+        public void DeleteItem(int index)
+        {
+            if (index >= 0 && index < Inventory.Count)
+                Inventory.RemoveAt(index);
+        }
+        public void ShowPlayerInventory() // 플레이어 인벤토리 표시 함수
+        {
+            
         }
     }
 }
