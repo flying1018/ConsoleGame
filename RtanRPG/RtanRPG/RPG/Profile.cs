@@ -44,7 +44,7 @@ namespace RtanRPG.RPG
                         Power = 10;
                         Defense = 10;
                         Coin = 0;
-                        MaxHp = 50; 
+                        MaxHp = 50;
                         break;
 
                     case Job.Mage:
@@ -66,29 +66,31 @@ namespace RtanRPG.RPG
             }
             public void ShowStats()
             {
-                TypingText("", "상태 보기");
+                TypingText("", "상태 보기", 0);
                 Console.WriteLine();
                 Console.WriteLine();
 
-                TypingText("", "레벨 : ");
-                TypingVar("red", Level);
+                TypingText("", "레벨 : ", 0);
+                TypingVar("red", Level, 0);
                 Console.WriteLine();
 
-                TypingVar("green", Name);
-                TypingText("", " : ");
-                TypingVar("blue", TextJob);
+                TypingVar("green", Name, 0);
+                TypingText("", " : ", 0);
+                TypingVar("blue", TextJob, 0);
                 Console.WriteLine();
 
-                TypingText("", "공격력 : ");
-                TypingVar("", Power);
+                TypingText("", "공격력 : ", 0);
+                TypingVar("", Power, 0);
                 Console.WriteLine();
 
-                TypingText("", "방어력 : ");
-                TypingVar("", Defense);
+                TypingText("", "방어력 : ", 0);
+                TypingVar("", Defense, 0);
                 Console.WriteLine();
 
-                TypingText("", "코인 : ");
-                TypingVar("yellow", Coin);
+                TypingText("", "코인 : ", 0);
+                TypingVar("yellow", Coin, 0);
+                TypingText("", " Gold", 0);
+                Console.WriteLine();
                 Console.WriteLine();
             }
         }

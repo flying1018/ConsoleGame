@@ -206,6 +206,11 @@ namespace RtanRPG.RPG
                         break;
                 }
             }
+            public static void InventoryItemInfo(Item.ItemInfo index)
+            {
+                
+            }
+
         }
     }
 }

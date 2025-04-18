@@ -22,15 +22,113 @@ namespace RtanRPG.RPG
 
 
 
-        public Map.MapInfo CurrentMap { get; private set; } // 현재 맵 위치
+        public Map.MapInfo CurrentMap { get; set; } // 현재 맵 위치
 
-        public int Turn { get; private set; } = 1; // 턴 저장 변수
+        public int Turn { get; set; } = 0; // 턴 저장 변수
 
-        public bool GameOver { get; private set; } = true; // 게임루프 관리하는 불리언 변수
+        public bool GameOver { get; set; } = false; // 게임루프 관리하는 불리언 변수
 
+        public void NextMap() // 다음 맵갈때마다 실행 (턴+1)
+        {
+            Turn++;
+        }
+
+        public void EndGame() // 게임종료 함수
+        {
+            GameOver = true;
+        }
+
+        public int WhatNum(int a, int b)
+        {
+            int index = -1;
+            while (true)
+            {
+                string input = Console.ReadLine();
+                bool isNum = int.TryParse(input, out index);
+
+                if (a <= index && index <= b)
+                    break;
+                else
+                {
+                    TypingText("red", "유효한 ");
+                    TypingText("", "숫자를 입력 해주십시오");
+                    Console.WriteLine();
+                }
+            }
+            return index;
+        }
+
+        public void BasicChoice()
+        {
+            Console.Clear();
+            TypingText("white", "┌──────────────┬───────────────┬───────────────┐", 0);
+            Console.WriteLine();
+            Console.WriteLine();
+            TypingText("white", "│   1. 상태창  │  2. 인벤토리  │  3. 던전 입장 │", 0);
+            Console.WriteLine();
+            Console.WriteLine();
+            TypingText("white", "└──────────────┴───────────────┴───────────────┘", 0);
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        public void MainTitle()
+        {
+            BasicChoice();
+            TypingText("", "원하는 선택지를 입력 해주세요(1~3)");
+            Console.WriteLine();
+            TypingText("", "숫자 입력 : ");
+
+            int playerChoice = WhatNum(1, 3);
+
+            switch (playerChoice)
+            {
+                case 1:
+                    ShowPlayerStats();
+                    break;
+                case 2:
+                    ShowPlayerInventory();
+                    break;
+                case 3:
+                    break;
+            }
+        }
+
+        public void ShowPlayerInventory() // 플레이어 인벤토리 표시 함수
+        {
+            PlayerInventory.ShowInventory();
+            GameHelper.TypingHelper.TypingText("", "메인화면 : 1\n상태창 : 2");
+            Console.WriteLine();
+            GameHelper.TypingHelper.TypingText("", "숫자 입력 : ");
+            int playerChoice = WhatNum(1, 2);
+
+            switch (playerChoice)
+            {
+                case 1:
+                        MainTitle();
+                    break;
+                case 2:
+                        ShowPlayerStats();
+                    break;
+            }
+        }
         public void ShowPlayerStats() // 플레이어 스탯창 표시 함수
         {
             Player.ShowStats();
+            TypingText("", "메인화면 : 1\n인벤토리 : 2");
+            Console.WriteLine();
+            TypingText("", "숫자 입력 : ");
+            int playerChoice = WhatNum(1, 2);
+            switch (playerChoice)
+            {
+                case 1:
+                    MainTitle();
+                    break;
+                case 2:
+                    ShowPlayerInventory();
+                    break;
+            }
+
         }
 
         public void LevelUp()
@@ -171,7 +269,7 @@ namespace RtanRPG.RPG
                         Player.Coin += value;
                         TypingText("yellow", "코인을 ");
                         TypingVar("blue", value);
-                        TypingText("", "얻었다!");
+                        TypingText("", " Gold 얻었다!");
                         Console.WriteLine();
                     }
                     else
@@ -179,7 +277,7 @@ namespace RtanRPG.RPG
                         Player.Coin += value;
                         TypingText("yellow", "코인을 ");
                         TypingVar("red", value);
-                        TypingText("", "잃었다..");
+                        TypingText("", " Gold 잃었다..");
                         Console.WriteLine();
                     }
 
@@ -198,16 +296,6 @@ namespace RtanRPG.RPG
                     Console.WriteLine("유효하지 않은 입력.");
                     break;
             }
-        }
-
-        public void NextMap() // 다음 맵갈때마다 실행 (턴+1)
-        {
-            Turn++;
-        }
-
-        public void EndGame() // 게임종료 함수
-        {
-            GameOver = false;
         }
 
         public void ExpCalculate()
@@ -282,9 +370,8 @@ namespace RtanRPG.RPG
                     return null;
 
             }
-
-
         }
+
         public void AddItem(GameManager game, Item.ItemType type, int index)
         {
             ItemToInven(game, type, index);
@@ -294,10 +381,6 @@ namespace RtanRPG.RPG
         {
             if (index >= 0 && index < Inventory.Count)
                 Inventory.RemoveAt(index);
-        }
-        public void ShowPlayerInventory() // 플레이어 인벤토리 표시 함수
-        {
-            
         }
     }
 }

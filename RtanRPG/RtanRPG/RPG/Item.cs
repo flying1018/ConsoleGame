@@ -1,11 +1,13 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Sockets;
 using System.Reflection.Metadata;
+using static RtanRPG.RPG.GameManager;
 
 namespace RtanRPG.RPG
 {
     internal static class Item
     {
+        
         public enum ItemType
         {
             Weapon, Armor, Accessory, Potion, Scroll
@@ -233,26 +235,22 @@ namespace RtanRPG.RPG
         public class InventoryInfo
         {
             public List<ItemInfo> Inventory = new List<ItemInfo>();
-        }
-        public static void ShowInventory()
-        {
-            Console.WriteLine("=== [보유 중인 아이템] ===");
-            for (int i = 0; i < game.PlayerInventory.Inventory.Count; i++)
+
+            public void ShowInventory()
             {
-                var info = PlayerInventory.Inventory[i];
-                var item = ItemHelper.GetItem(info);
-
-                string itemName = item switch
+                Console.WriteLine("==== [인벤토리] ====");
+                for (int i = 0; i < Inventory.Count; i++)
                 {
-                    Item.WeaponInfo w => w.Name,
-                    Item.ArmorInfo a => a.Name,
-                    Item.AccessoryInfo ac => ac.Name,
-                    Item.PotionInfo p => p.Name,
-                    Item.ScrollInfo s => s.Name,
-                    _ => "알 수 없음"
-                };
-
-                Console.WriteLine($"[{i + 1}] {itemName} ({info.Type})");
+                    GameHelper.TypingHelper.TypingVar("", i + 1, 0);
+                    GameHelper.TypingHelper.TypingText("", ". ");
+                    GameHelper.TypingHelper.TypingVar("green", Inventory[i].Name, 0);
+                    GameHelper.TypingHelper.TypingText("", " 가격 - ");
+                    GameHelper.TypingHelper.TypingVar("yellow", Inventory[i].Cost, 0);
+                    GameHelper.TypingHelper.TypingText("", " Gold");
+                    Console.WriteLine();
+                }
+                Console.WriteLine("==================");
+                Console.WriteLine();
             }
         }
     }

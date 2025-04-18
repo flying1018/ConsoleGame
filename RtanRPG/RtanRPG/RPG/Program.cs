@@ -10,7 +10,7 @@ namespace RtanRPG.RPG
         static void Main()
         {
             Console.Title = "Rtan RPG";
-
+            
             bool selectLoop = true; // 캐릭터 생성 관리 불리언 변수
 
             string playerName = "";
@@ -191,7 +191,7 @@ namespace RtanRPG.RPG
                 game.NewPlayer(playerName, playerJob, textJob); // 플레이어 객체 선언
                 game.NewInventory(); // 플레이어 인벤토리 선언
 
-                game.ShowPlayerStats();
+                game.Player.ShowStats();
                 Console.WriteLine();
                 while (true)
                 {
@@ -250,6 +250,7 @@ namespace RtanRPG.RPG
             TypingText("", "하지만,", 100);
             Thread.Sleep(700);
             TypingText("", " 여러 나라들이 자국의 이익을 위해 전쟁을 하며\n", 100);
+            Thread.Sleep(700);
             TypingText("", "마계의 존재들이 세상을 뒤엎을 계획을 꾀하는 지금.", 100);
             Thread.Sleep(700);
             Console.WriteLine();
@@ -288,12 +289,12 @@ namespace RtanRPG.RPG
             Console.WriteLine();
             Console.WriteLine();
             Thread.Sleep(1000);
-            
+
             TypingText("", "사제 : \'여행에 떠나기전, ", 100);
             Thread.Sleep(700);
-            TypingText("", "네가 원하는 ", 100 );
-            TypingText("yellow", "\'신의 축복\'",100);
-            TypingText("", "을 선택해라 모험가여.",100);
+            TypingText("", "네가 원하는 ", 100);
+            TypingText("yellow", "\'신의 축복\'", 100);
+            TypingText("", "을 선택해라 모험가여.", 100);
             Console.WriteLine();
             Console.WriteLine();
             Thread.Sleep(1500);
@@ -321,10 +322,17 @@ namespace RtanRPG.RPG
                     TypingText("", "숫자를 입력 해주십시오");
                     Console.WriteLine();
                 }
-
-
             }
-
+            Console.WriteLine();
+            Console.WriteLine();
+            TypingText("", ".....", 400);
+            Console.WriteLine();
+            Console.WriteLine();
+            
+            while (!game.GameOver)
+            {
+                game.MainTitle();
+            }
         }
     }
 }

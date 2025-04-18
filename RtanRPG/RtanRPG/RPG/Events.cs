@@ -19,7 +19,7 @@ namespace RtanRPG.RPG
             {StartEvent.Humanism, "인간찬가 : 인간들은 늘 위기를 스스로 해쳐왔다.\n지금도 마찬가지다."},
             {StartEvent.Warmonger, "전쟁광 : 강한 힘의 유혹이 느껴진다."},
             {StartEvent.Wealthy, "갑부 : Flex~"},
-            {StartEvent.Celeb, "차은우"},
+            {StartEvent.Celeb, "연예인 : 포근함이 느껴진다."},
             {StartEvent.Godslayer, "신살자 : ????"},
         };
         public static void ApplyStartEvent(GameManager game, StartEvent name)
@@ -36,13 +36,19 @@ namespace RtanRPG.RPG
                     TypingText("", "몸에 활력이 돋아난다.");
                     Console.WriteLine();
                     TypingText("", "체력:15 / 공격력:5 / 방어력:5 증가");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
+
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    TypingText("", ".....", 400);
+                    Console.WriteLine();
                     Console.WriteLine();
 
                     TypingText("", "신에게 ");
                     TypingText("yellow", "경외심");
                     TypingText("", "이 느껴진다.");
                     Console.WriteLine();
+                    Thread.Sleep(500);
                     TypingVar("yellow", Item.AccessoryDB.accessory[1].Name);
                     TypingText("", " 획득.");
                     Console.WriteLine();
@@ -56,6 +62,12 @@ namespace RtanRPG.RPG
                     TypingText("green", "강한 의지");
                     TypingText("", "가 느껴진다.");
                     Console.WriteLine();
+                    Console.WriteLine();
+
+                    TypingText("", ".....", 400);
+                    Console.WriteLine();
+                    Console.WriteLine();
+
                     TypingText("", "체력:5 / 방어력:5 증가");
                     Console.WriteLine();
                     Thread.Sleep(1000);
@@ -71,13 +83,19 @@ namespace RtanRPG.RPG
                     TypingText("red", "전투의");
                     TypingText("", " 충동이 느껴진다.");
                     Console.WriteLine();
+                    Thread.Sleep(500);
                     TypingText("", "공격력:11 / 방어력:5 증가");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    TypingText("", ".....", 400);
+                    Console.WriteLine();
                     Console.WriteLine();
 
                     TypingText("", "현재 체력이");
-                    TypingText("red", "10");
+                    TypingText("red", " 10 ");
                     TypingText("", "감소했다.");
+                    Console.WriteLine();
                     break;
 
                 case StartEvent.Wealthy:
@@ -85,7 +103,11 @@ namespace RtanRPG.RPG
                     TypingText("", "하늘에서 ");
                     TypingText("yellow", "금화가");
                     TypingText("", " 쏟아진다.");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    TypingText("", ".....", 400);
+                    Console.WriteLine();
                     Console.WriteLine();
 
                     TypingText("", "코인 ");
@@ -99,12 +121,18 @@ namespace RtanRPG.RPG
                     TypingText("", "주위 사람들이 점점 ");
                     TypingText("green", "동경의 시선");
                     TypingText("", "을 보낸다.");
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    TypingText("", ".....", 400);
+                    Console.WriteLine();
                     Console.WriteLine();
 
                     TypingText("", "옆의 꼬마가 ");
                     TypingText("green", "선물");
                     TypingText("", "을 줬다.");
+                    Console.WriteLine();
+                    Thread.Sleep(1000);
 
                     TypingVar("yellow", Item.PotionDB.potion[3].Name);
                     TypingText("", ", ");
