@@ -216,19 +216,22 @@ namespace RtanRPG.RPG
             public string Name;
             public int Cost;
             public int Index;
+            public bool Eq;
             public ItemInfo()
             {
                 Type = ItemType.Weapon;
                 Name = "";
                 Cost = -1;
                 Index = -1;
+                Eq = false;
             }
-            public ItemInfo(ItemType type, string name, int cost, int index)
+            public ItemInfo(ItemType type, string name, int cost, int index, bool eq)
             {
                 Type = type;
                 Name = name;
                 Cost = cost;
                 Index = index;
+                Eq = eq;
             }
         }
 

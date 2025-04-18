@@ -72,7 +72,7 @@ namespace RtanRPG.RPG
             Console.WriteLine();
         }
 
-        public void MainTitle()
+        public void MainTitle()  // 게임 메인화면
         {
             BasicChoice();
             TypingText("", "원하는 선택지를 입력 해주세요(1~3)");
@@ -90,6 +90,7 @@ namespace RtanRPG.RPG
                     ShowPlayerInventory();
                     break;
                 case 3:
+                    DungeonStart();
                     break;
             }
         }
@@ -97,7 +98,7 @@ namespace RtanRPG.RPG
         public void ShowPlayerInventory() // 플레이어 인벤토리 표시 함수
         {
             PlayerInventory.ShowInventory();
-            GameHelper.TypingHelper.TypingText("", "메인화면 : 1\n상태창 : 2");
+            GameHelper.TypingHelper.TypingText("", "1 : 메인화면\n2 : 장비장착");
             Console.WriteLine();
             GameHelper.TypingHelper.TypingText("", "숫자 입력 : ");
             int playerChoice = WhatNum(1, 2);
@@ -105,17 +106,17 @@ namespace RtanRPG.RPG
             switch (playerChoice)
             {
                 case 1:
-                        MainTitle();
+                    MainTitle();
                     break;
                 case 2:
-                        ShowPlayerStats();
+                    ChageItem();
                     break;
             }
         }
         public void ShowPlayerStats() // 플레이어 스탯창 표시 함수
         {
             Player.ShowStats();
-            TypingText("", "메인화면 : 1\n인벤토리 : 2");
+            TypingText("", "1 : 메인화면\n2 : 인벤토리");
             Console.WriteLine();
             TypingText("", "숫자 입력 : ");
             int playerChoice = WhatNum(1, 2);
@@ -127,6 +128,57 @@ namespace RtanRPG.RPG
                 case 2:
                     ShowPlayerInventory();
                     break;
+            }
+
+        }
+
+        public void ChageItem()
+        {
+            TypingText("", "1 : 장착\n2 : 해제");
+            Console.WriteLine();
+            TypingText("", "숫자 입력 : ");
+            int num = WhatNum(1, 2);
+            if (num == 1)
+            {
+                while (true)
+                {
+                    TypingText("", "장착을 원하는 장비 입력 : ");
+                    int playerChoice = WhatNum(1, Inventory.Count);
+                    Item.ItemType nowType = Inventory[playerChoice - 1].Type;
+                    int nowIndex = Inventory[playerChoice - 1].Index;
+
+                    if (Inventory[playerChoice - 1].Eq == true)
+                    {
+                        TypingText("", "이미 장착한 장비입니다");
+                    }
+                    else
+                    {
+                        Inventory[playerChoice - 1].Eq = true;
+                        // EqItem(, Inventory[playerChoice - 1].Type, Inventory[playerChoice - 1].Index);
+                        break;
+                    }
+                }
+            }
+            else if (num == 2)
+            {
+                while (true)
+                {
+                    TypingText("", "해제을 원하는 장비 입력 : ");
+                    int playerChoice = WhatNum(1, Inventory.Count);
+                    Item.ItemType nowType = Inventory[playerChoice - 1].Type;
+                    int nowIndex = Inventory[playerChoice - 1].Index;
+
+                    if (Inventory[playerChoice - 1].Eq == false)
+                    {
+                        TypingText("", "장착하지 않은 장비입니다");
+                    }
+                    else
+                    {
+                        Inventory[playerChoice - 1].Eq = true;
+                        //UneqItem(, Inventory[playerChoice - 1].Type, Inventory[playerChoice - 1].Index);
+                        break;
+                    }
+                }
             }
 
         }
@@ -308,7 +360,7 @@ namespace RtanRPG.RPG
             }
         }
 
-        public int rollDice()
+        public int RollDice()
         {
             Random random = new Random();
             int diceNum;
@@ -381,6 +433,18 @@ namespace RtanRPG.RPG
         {
             if (index >= 0 && index < Inventory.Count)
                 Inventory.RemoveAt(index);
+        }
+
+        public void DungeonStart()
+        {
+            TypingText("", "당신은 던전에 나아간다..");
+
+            int luck = RollDice();
+
+            if (luck == 6)
+            {
+                TypingText("yellow", "대성공!");
+            }
         }
     }
 }
