@@ -237,30 +237,31 @@ namespace RtanRPG.RPG
                     ItemToInven(game, Item.ItemType.Weapon, 3);
                     break;
             }
-            TypingText("", "이 세상은 ", 100);
+            int TestSpeed = 0;
+            TypingText("", "이 세상은 ", TestSpeed);
             Thread.Sleep(700);
-            TypingText("red", "확률의 신", 100);
+            TypingText("red", "확률의 신", TestSpeed);
             TypingText("", "의");
             Thread.Sleep(700);
-            TypingText("", " 은총을 받는다는 전승이 있다.", 100);
+            TypingText("", " 은총을 받는다는 전승이 있다.", TestSpeed);
             Console.WriteLine();
             Console.WriteLine();
             Thread.Sleep(1200);
 
-            TypingText("", "하지만,", 100);
+            TypingText("", "하지만,", TestSpeed);
             Thread.Sleep(700);
-            TypingText("", " 여러 나라들이 자국의 이익을 위해 전쟁을 하며\n", 100);
+            TypingText("", " 여러 나라들이 자국의 이익을 위해 전쟁을 하며\n", TestSpeed);
             Thread.Sleep(700);
-            TypingText("", "마계의 존재들이 세상을 뒤엎을 계획을 꾀하는 지금.", 100);
+            TypingText("", "마계의 존재들이 세상을 뒤엎을 계획을 꾀하는 지금.", TestSpeed);
             Thread.Sleep(700);
             Console.WriteLine();
             Console.WriteLine();
             Thread.Sleep(1200);
 
-            TypingText("", "사람들은 현 시대를 ", 100);
+            TypingText("", "사람들은 현 시대를 ", TestSpeed);
             Thread.Sleep(700);
-            TypingText("yellow", "\'군웅할거\'", 100);
-            TypingText("", " 시대라 말하고 있다..", 100);
+            TypingText("yellow", "\'군웅할거\'", TestSpeed);
+            TypingText("", " 시대라 말하고 있다..", TestSpeed);
             Console.WriteLine();
             Console.WriteLine();
 
@@ -269,32 +270,32 @@ namespace RtanRPG.RPG
             Console.WriteLine();
             Console.WriteLine();
 
-            TypingText("", "?? : \"반갑네 ", 100);
+            TypingText("", "?? : \"반갑네 ", TestSpeed);
             TypingVar("green", game.Player.Name);
             TypingText("", ".\"");
             Console.WriteLine();
             Thread.Sleep(700);
 
-            TypingText("", "?? : \"자네가 이번에 새로 등록한 모험가구먼.\"", 100);
+            TypingText("", "?? : \"자네가 이번에 새로 등록한 모험가구먼.\"", TestSpeed);
             Console.WriteLine();
             Console.WriteLine();
             Thread.Sleep(1500);
 
-            TypingText("", "르탄 : \"그리 경계하지 말게나. 난 르탄, 모험가 길드의 길드장이지.\"", 100);
+            TypingText("", "르탄 : \"그리 경계하지 말게나. 난 르탄, 모험가 길드의 길드장이지.\"", TestSpeed);
             Console.WriteLine();
             Console.WriteLine();
             Thread.Sleep(1000);
 
-            TypingText("", "신전 가는거 생략");
+            TypingText("", "-신전 스토리 생략-");
             Console.WriteLine();
             Console.WriteLine();
             Thread.Sleep(1000);
 
-            TypingText("", "사제 : \'여행에 떠나기전, ", 100);
+            TypingText("", "사제 : \'여행에 떠나기전, ", TestSpeed);
             Thread.Sleep(700);
-            TypingText("", "네가 원하는 ", 100);
-            TypingText("yellow", "\'신의 축복\'", 100);
-            TypingText("", "을 선택해라 모험가여.", 100);
+            TypingText("", "네가 원하는 ", TestSpeed);
+            TypingText("yellow", "\'신의 축복\'", TestSpeed);
+            TypingText("", "을 선택해라 모험가여.", TestSpeed);
             Console.WriteLine();
             Console.WriteLine();
             Thread.Sleep(1500);

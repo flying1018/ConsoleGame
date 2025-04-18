@@ -107,56 +107,6 @@ namespace RtanRPG.RPG
         }
         public static class ItemHelper
         {
-            public static void EqItem(GameManager game, Item.ItemType type, int index)
-            {
-                switch (type)
-                {
-                    case Item.ItemType.Weapon:
-                        game.Player.Power += Item.WeaponDB.weapon[index].Power;
-                        game.Player.Defense += Item.WeaponDB.weapon[index].Defense;
-                        break;
-
-                    case Item.ItemType.Armor:
-                        game.Player.MaxHp += Item.ArmorDB.armor[index].MaxHp;
-                        game.Player.Defense += Item.ArmorDB.armor[index].Defense;
-                        game.Player.Power += Item.ArmorDB.armor[index].Power;
-                        break;
-
-                    case Item.ItemType.Accessory:
-                        game.Player.Power += Item.AccessoryDB.accessory[index].Power;
-                        game.Player.Defense += Item.AccessoryDB.accessory[index].Defense;
-                        break;
-                    default:
-                        TypingHelper.TypingText("", "장착 할 수 없는 아이템입니다");
-                        break;
-                }
-            }
-
-            public static void UneqItem(GameManager game, Item.ItemType type, int index)
-            {
-                switch (type)
-                {
-                    case Item.ItemType.Weapon:
-                        game.Player.Power -= Item.WeaponDB.weapon[index].Power;
-                        game.Player.Defense -= Item.WeaponDB.weapon[index].Defense;
-                        break;
-
-                    case Item.ItemType.Armor:
-                        game.Player.MaxHp -= Item.ArmorDB.armor[index].MaxHp;
-                        game.Player.Defense -= Item.ArmorDB.armor[index].Defense;
-                        game.Player.Power -= Item.ArmorDB.armor[index].Power;
-                        break;
-
-                    case Item.ItemType.Accessory:
-                        game.Player.Power -= Item.AccessoryDB.accessory[index].Power;
-                        game.Player.Defense -= Item.AccessoryDB.accessory[index].Defense;
-                        break;
-                    default:
-                        TypingHelper.TypingText("", "장착 할 수 없는 아이템입니다");
-                        break;
-                }
-            }
-
             public static void ItemToInven(GameManager game, Item.ItemType type, int index)
             {
                 Item.ItemInfo dummy = new Item.ItemInfo();

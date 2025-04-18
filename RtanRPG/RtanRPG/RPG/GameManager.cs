@@ -98,10 +98,10 @@ namespace RtanRPG.RPG
         public void ShowPlayerInventory() // 플레이어 인벤토리 표시 함수
         {
             PlayerInventory.ShowInventory();
-            GameHelper.TypingHelper.TypingText("", "1 : 메인화면\n2 : 장비장착");
+            GameHelper.TypingHelper.TypingText("", "1 : 메인화면\n2 : 장비변경\n3 : 장비 정보확인");
             Console.WriteLine();
             GameHelper.TypingHelper.TypingText("", "숫자 입력 : ");
-            int playerChoice = WhatNum(1, 2);
+            int playerChoice = WhatNum(1, 3);
 
             switch (playerChoice)
             {
@@ -110,6 +110,9 @@ namespace RtanRPG.RPG
                     break;
                 case 2:
                     ChageItem();
+                    break;
+                case 3:
+                    SeeItem();
                     break;
             }
         }
@@ -134,6 +137,8 @@ namespace RtanRPG.RPG
 
         public void ChageItem()
         {
+            Console.Clear();
+            PlayerInventory.ShowInventory();
             TypingText("", "1 : 장착\n2 : 해제");
             Console.WriteLine();
             TypingText("", "숫자 입력 : ");
@@ -144,8 +149,6 @@ namespace RtanRPG.RPG
                 {
                     TypingText("", "장착을 원하는 장비 입력 : ");
                     int playerChoice = WhatNum(1, Inventory.Count);
-                    Item.ItemType nowType = Inventory[playerChoice - 1].Type;
-                    int nowIndex = Inventory[playerChoice - 1].Index;
 
                     if (Inventory[playerChoice - 1].Eq == true)
                     {
@@ -154,7 +157,7 @@ namespace RtanRPG.RPG
                     else
                     {
                         Inventory[playerChoice - 1].Eq = true;
-                        // EqItem(, Inventory[playerChoice - 1].Type, Inventory[playerChoice - 1].Index);
+                        EqItem(Inventory[playerChoice - 1].Type, Inventory[playerChoice - 1].Index);
                         break;
                     }
                 }
@@ -165,8 +168,6 @@ namespace RtanRPG.RPG
                 {
                     TypingText("", "해제을 원하는 장비 입력 : ");
                     int playerChoice = WhatNum(1, Inventory.Count);
-                    Item.ItemType nowType = Inventory[playerChoice - 1].Type;
-                    int nowIndex = Inventory[playerChoice - 1].Index;
 
                     if (Inventory[playerChoice - 1].Eq == false)
                     {
@@ -174,15 +175,100 @@ namespace RtanRPG.RPG
                     }
                     else
                     {
-                        Inventory[playerChoice - 1].Eq = true;
-                        //UneqItem(, Inventory[playerChoice - 1].Type, Inventory[playerChoice - 1].Index);
+                        Inventory[playerChoice - 1].Eq = false;
+                        UneqItem(Inventory[playerChoice - 1].Type, Inventory[playerChoice - 1].Index);
                         break;
                     }
                 }
             }
 
         }
+        public void SeeItem()
+        {
+            while (true)
+            {
+                Console.Clear();
+                PlayerInventory.ShowInventory();
+                TypingText("", "정보를 보기 원하는 장비 입력 : ");
+                int playerChoice = WhatNum(1, Inventory.Count);
 
+                TypingText("","");
+
+                if (Inventory[playerChoice - 1].Eq == true)
+                {
+                    TypingText("", "이미 장착한 장비입니다");
+                }
+                else
+                {
+                    Inventory[playerChoice - 1].Eq = true;
+                    EqItem(Inventory[playerChoice - 1].Type, Inventory[playerChoice - 1].Index);
+                    break;
+                }
+            }
+        }
+        public void EqItem(Item.ItemType type, int index)
+        {
+            switch (type)
+            {
+                case Item.ItemType.Weapon:
+                    Player.Power += Item.WeaponDB.weapon[index].Power;
+                    Player.Defense += Item.WeaponDB.weapon[index].Defense;
+                    TypingVar("green", Item.WeaponDB.weapon[index].Name);
+                    TypingText("", "을 장착 했습니다.");
+                    break;
+
+                case Item.ItemType.Armor:
+                    Player.MaxHp += Item.ArmorDB.armor[index].MaxHp;
+                    Player.Defense += Item.ArmorDB.armor[index].Defense;
+                    Player.Power += Item.ArmorDB.armor[index].Power;
+                    TypingVar("green", Item.ArmorDB.armor[index].Name);
+                    TypingText("", "을 장착 했습니다.");
+                    break;
+
+                case Item.ItemType.Accessory:
+                    Player.Power += Item.AccessoryDB.accessory[index].Power;
+                    Player.Defense += Item.AccessoryDB.accessory[index].Defense;
+                    TypingVar("green", Item.AccessoryDB.accessory[index].Name);
+                    TypingText("", "을 장착 했습니다.");
+                    break;
+                default:
+                    TypingText("", "장착 할 수 없는 아이템입니다");
+                    break;
+            }
+            Console.WriteLine();
+        }
+
+        public void UneqItem(Item.ItemType type, int index)
+        {
+            switch (type)
+            {
+                case Item.ItemType.Weapon:
+                    Player.Power -= Item.WeaponDB.weapon[index].Power;
+                    Player.Defense -= Item.WeaponDB.weapon[index].Defense;
+                    TypingVar("green", Item.WeaponDB.weapon[index].Name);
+                    TypingText("", "을 해제 했습니다.");
+                    break;
+
+                case Item.ItemType.Armor:
+                    Player.MaxHp -= Item.ArmorDB.armor[index].MaxHp;
+                    Player.Defense -= Item.ArmorDB.armor[index].Defense;
+                    Player.Power -= Item.ArmorDB.armor[index].Power;
+                    TypingVar("green", Item.ArmorDB.armor[index].Name);
+                    TypingText("", "을 해제 했습니다.");
+                    break;
+
+                case Item.ItemType.Accessory:
+                    Player.Power -= Item.AccessoryDB.accessory[index].Power;
+                    Player.Defense -= Item.AccessoryDB.accessory[index].Defense;
+                    TypingVar("green", Item.AccessoryDB.accessory[index].Name);
+                    TypingText("", "을 해제 했습니다.");
+                    break;
+                default:
+                    TypingText("", "장착 할 수 없는 아이템입니다");
+                    break;
+            }
+            Console.WriteLine();
+        }
         public void LevelUp()
         {
             TypingText("green", "레벨업! ");

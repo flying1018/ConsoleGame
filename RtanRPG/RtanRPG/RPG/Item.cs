@@ -247,6 +247,8 @@ namespace RtanRPG.RPG
                     GameHelper.TypingHelper.TypingVar("", i + 1, 0);
                     GameHelper.TypingHelper.TypingText("", ". ");
                     GameHelper.TypingHelper.TypingVar("green", Inventory[i].Name, 0);
+                    if(Inventory[i].Eq == true)
+                        GameHelper.TypingHelper.TypingText("red", "[E]");
                     GameHelper.TypingHelper.TypingText("", " 가격 - ");
                     GameHelper.TypingHelper.TypingVar("yellow", Inventory[i].Cost, 0);
                     GameHelper.TypingHelper.TypingText("", " Gold");
