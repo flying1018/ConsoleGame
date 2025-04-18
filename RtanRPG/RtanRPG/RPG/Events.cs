@@ -15,8 +15,8 @@ namespace RtanRPG.RPG
         }
         public static readonly Dictionary<StartEvent, string> startEvent = new Dictionary<StartEvent, string>()
         {
-            {StartEvent.Belliever, "신앙자 : 마음에 신앙이 차오르는것 같다."},
-            {StartEvent.Humanism, "인간찬가 : 인간들은 늘 위기를 스스로 해쳐왔다.\n지금도 마찬가지다."},
+            {StartEvent.Belliever, "독실한 신자 : 마음에 신앙이 차오르는것 같다."},
+            {StartEvent.Humanism, "인간찬가 : 인간들은 늘 위기를 스스로 해쳐왔다.\n\t현 세상의 위기도 우리는 해쳐 나갈 수 있을것이다.."},
             {StartEvent.Warmonger, "전쟁광 : 강한 힘의 유혹이 느껴진다."},
             {StartEvent.Wealthy, "갑부 : Flex~"},
             {StartEvent.Celeb, "연예인 : 포근함이 느껴진다."},

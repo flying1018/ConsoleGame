@@ -19,11 +19,9 @@ namespace RtanRPG.RPG
 
         public List<Item.ItemInfo> Inventory { get; private set; } = new List<Item.ItemInfo>();
 
-        public Map.MapInfo CurrentMap; // 현재 맵 위치
-
         public int Turn = 0; // 턴 저장 변수
 
-        public int[] mapLocation;
+        public int[]? mapLocation; 
 
         public bool GameOver = false; // 게임루프 관리하는 불리언 변수
         public int[] MakeMap() // 맵생성 함수
@@ -36,7 +34,9 @@ namespace RtanRPG.RPG
             {
                 int k = random.Next(0, 100);
                 if (Turn == 4 || Turn == 9 || Turn == 14)
+                {
                     arry[j - 1] = Map.MapDB.mapDB[6].Index;
+                }
                 else if (Turn < 9) // 초반부
                 {
                     if (k < 35)
@@ -123,11 +123,11 @@ namespace RtanRPG.RPG
             Console.WriteLine();
             Console.WriteLine();
             TypingText("white", "│   1. ", 0);
-            TypingVar("white", Map.MapDB.mapDB[mapLocation[1]].Name);
+            TypingVar("white", Map.MapDB.mapDB[mapLocation[0]].Name);
             TypingText("white", "   │  2. ");
-            TypingVar("white", Map.MapDB.mapDB[mapLocation[2]].Name);
+            TypingVar("white", Map.MapDB.mapDB[mapLocation[1]].Name);
             TypingText("white", "   │  3. ");
-            TypingVar("white", Map.MapDB.mapDB[mapLocation[3]].Name);
+            TypingVar("white", Map.MapDB.mapDB[mapLocation[2]].Name);
             TypingText("white", "  │ ");
             Console.WriteLine();
             Console.WriteLine();
@@ -701,6 +701,7 @@ namespace RtanRPG.RPG
                     Console.WriteLine();
                 }
             }
+            Console.WriteLine();
             return diceNum;
         }
 
@@ -720,7 +721,7 @@ namespace RtanRPG.RPG
                         {
                             ranEvent[i] = random.Next(1, 6);
                             Choice[i] = (Events.StartEvent)ranEvent[i];
-                        } while (ranEvent[0] == ranEvent[1] && ranEvent[1] == ranEvent[2] && ranEvent[0] == ranEvent[2]);
+                        } while (ranEvent[0] == ranEvent[1] || ranEvent[1] == ranEvent[2] || ranEvent[0] == ranEvent[2]);
 
                         TypingVar("", i + 1);
                         TypingText("", ":");
