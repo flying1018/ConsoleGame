@@ -5,7 +5,7 @@ namespace RtanRPG.RPG
 {
     internal static class Utils
     {
-        public static void ApplySpecialEffect(string name, GameManager game)
+        public static void ApplyPotionEffect(GameManager game, string name)
         {
             switch (name)
             {
@@ -34,7 +34,7 @@ namespace RtanRPG.RPG
 
                     break;
 
-                case "만병_통치약":
+                case "대환단":
                     Heal(game, Item.PotionDB.potion[4].Hp);
                     NoDebuff(game);
                     TypingText("", "모든 ");
@@ -57,7 +57,7 @@ namespace RtanRPG.RPG
         public static void NoDebuff(GameManager game)
         {
             game.Player.isFascination = false;
-            game.Player.isAwe = false;
+            game.Player.isHurt = false;
         }
 
         public static void Heal(GameManager game, int amount)

@@ -157,7 +157,7 @@ namespace RtanRPG.RPG
                 }
             }
 
-            public static void ItemToInven(Item.ItemType type, int index)
+            public static void ItemToInven(GameManager game, Item.ItemType type, int index)
             {
                 Item.ItemInfo dummy = new Item.ItemInfo();
 
@@ -167,35 +167,40 @@ namespace RtanRPG.RPG
                         dummy.Type = type;
                         dummy.Name = Item.WeaponDB.weapon[index].Name;
                         dummy.Cost = Item.WeaponDB.weapon[index].Cost;
-                        Item.InventoryInfo.Inventory.Add(dummy);
+                        dummy.Index = index;
+                        game.PlayerInventory.Inventory.Add(dummy);
                         break;
 
                     case Item.ItemType.Armor:
                         dummy.Type = type;
                         dummy.Name = Item.ArmorDB.armor[index].Name;
                         dummy.Cost = Item.ArmorDB.armor[index].Cost;
-                        Item.InventoryInfo.Inventory.Add(dummy);
+                        dummy.Index = index;
+                        game.PlayerInventory.Inventory.Add(dummy);
                         break;
 
                     case Item.ItemType.Accessory:
                         dummy.Type = type;
                         dummy.Name = Item.AccessoryDB.accessory[index].Name;
                         dummy.Cost = Item.AccessoryDB.accessory[index].Cost;
-                        Item.InventoryInfo.Inventory.Add(dummy);
+                        dummy.Index = index;
+                        game.PlayerInventory.Inventory.Add(dummy);
                         break;
 
                     case Item.ItemType.Potion:
                         dummy.Type = type;
                         dummy.Name = Item.PotionDB.potion[index].Name;
                         dummy.Cost = Item.PotionDB.potion[index].Cost;
-                        Item.InventoryInfo.Inventory.Add(dummy);
+                        dummy.Index = index;
+                        game.PlayerInventory.Inventory.Add(dummy);
                         break;
 
                     case Item.ItemType.Scroll:
                         dummy.Type = type;
                         dummy.Name = Item.ScrollDB.scroll[index].Name;
                         dummy.Cost = Item.ScrollDB.scroll[index].Cost;
-                        Item.InventoryInfo.Inventory.Add(dummy);
+                        dummy.Index = index;
+                        game.PlayerInventory.Inventory.Add(dummy);
                         break;
                     default:
                         break;

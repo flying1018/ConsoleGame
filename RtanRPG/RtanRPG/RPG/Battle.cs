@@ -1,6 +1,6 @@
 namespace RtanRPG.RPG
 {
-    public static class Battle
+    internal static class Battle
     {
         
     }

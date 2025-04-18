@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks.Dataflow;
-using static RtanRPG.RPG.GameHelper.ColorHelper;
 using static RtanRPG.RPG.GameHelper.TypingHelper;
 using static RtanRPG.RPG.GameHelper.LordingHelper;
+using static RtanRPG.RPG.GameHelper.ItemHelper;
 
 namespace RtanRPG.RPG
 {
@@ -18,7 +18,7 @@ namespace RtanRPG.RPG
             string textJob = "";
 
             GameManager game = new GameManager();
-            
+
 
             while (selectLoop)
             {
@@ -188,7 +188,8 @@ namespace RtanRPG.RPG
                 Thread.Sleep(1000);
 
                 game = new GameManager();
-                game.NewPlayer(playerName, playerJob, textJob);
+                game.NewPlayer(playerName, playerJob, textJob); // 플레이어 객체 선언
+                game.NewInventory(); // 플레이어 인벤토리 선언
 
                 game.ShowPlayerStats();
                 Console.WriteLine();
@@ -219,8 +220,39 @@ namespace RtanRPG.RPG
             }
 
 
+            ItemToInven(game, Item.ItemType.Potion, 1);
+            ItemToInven(game, Item.ItemType.Potion, 1); // 기본 템으로 체력_물약 2개 지급
+            switch (game.Player.PlayerJob)
+            {
+                case Profile.Job.Warrior:
+                    ItemToInven(game, Item.ItemType.Weapon, 1);
+                    break;
 
+                case Profile.Job.Mage:
+                    ItemToInven(game, Item.ItemType.Weapon, 2);
+                    break;
 
+                case Profile.Job.Thief:
+                    ItemToInven(game, Item.ItemType.Weapon, 3);
+                    break;
+            }
+
+            ItemToInven(game, Item.ItemType.Armor, 1);
+            Console.Clear();
+
+            TypingText("", "반갑네 ");
+            TypingVar("green", game.Player.Name);
+            Console.WriteLine();
+
+            TypingText("", "여행에 떠나기전, 네가 원하는 ");
+            TypingText("yellow", "신의 축복");
+            TypingText("", "을 선택해라 모험가여.");
+
+            
+            while (true)
+            {
+
+            }
         }
     }
 }

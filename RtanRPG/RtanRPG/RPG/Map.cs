@@ -9,12 +9,12 @@ namespace RtanRPG.RPG
 
         public class MapInfo
         {
-            public string EventType;
+            public string MapType;
             public int Index;
 
-            public MapInfo(string eventType, int index)
+            public MapInfo(string mapType, int index)
             {
-                EventType = eventType;
+                MapType = mapType;
                 Index = index;
             }
         }

@@ -23,6 +23,7 @@ namespace RtanRPG.RPG
             public int Hp;
             public int MaxHp;
             public bool isFascination;
+            public bool isHurt;
             public bool isAwe;
             public PlayerInfo(string name, Job playerJob, string textJob)
             {
@@ -32,6 +33,7 @@ namespace RtanRPG.RPG
                 Level = 1;
                 Exp = 0;
                 isFascination = false;
+                isHurt = false;
                 isAwe = false;
 
                 switch (playerJob) // 직업별 능력치 배분

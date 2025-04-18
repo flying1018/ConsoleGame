@@ -30,7 +30,7 @@ namespace RtanRPG.RPG
         };
         public static List<string> Potions = new List<string> // 포션
         {
-            "치유_물약", "상급_물약", "상태_회복약", "엘릭서", "만병_통치약"
+            "치유_물약", "상급_물약", "엘릭서", "대환단", "상태_회복약"
         };
         public static List<string> Scrolls = new List<string> // 스크롤
         {
@@ -178,7 +178,7 @@ namespace RtanRPG.RPG
                 {1, new PotionInfo(Potions[0], 30, 15, false)}, // 체력 물약
                 {2, new PotionInfo(Potions[1], 60, 30, false)}, // 상급 물약
                 {3, new PotionInfo(Potions[3], 100, 50, false)}, // 엘릭서
-                {4, new PotionInfo(Potions[4], 9999, 150, true)}, // 만병 통치약
+                {4, new PotionInfo(Potions[4], 9999, 150, true)}, // 대환단
                 {5, new PotionInfo(Potions[2], 0, 30, true)}, // 상태 회복약
             };
         }
@@ -213,23 +213,26 @@ namespace RtanRPG.RPG
             public ItemType Type;
             public string Name;
             public int Cost;
+            public int Index;
             public ItemInfo()
             {
                 Type = ItemType.Weapon;
                 Name = "";
                 Cost = -1;
+                Index = -1;
             }
-            public ItemInfo(ItemType type, string name, int cost)
+            public ItemInfo(ItemType type, string name, int cost, int index)
             {
                 Type = type;
                 Name = name;
                 Cost = cost;
+                Index = index;
             }
         }
 
         public class InventoryInfo
         {
-            public static List<ItemInfo> Inventory = new List<ItemInfo>();
+            public List<ItemInfo> Inventory = new List<ItemInfo>();
         }
     }
 }

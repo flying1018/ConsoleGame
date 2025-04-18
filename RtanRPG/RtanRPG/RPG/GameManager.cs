@@ -1,18 +1,19 @@
+using static RtanRPG.RPG.GameHelper.TypingHelper;
 
 namespace RtanRPG.RPG
 {
     internal class GameManager
     {
-        public Profile.PlayerInfo Player { get; set; } // 플레이어 프로필 불러오는 객체
+        public Profile.PlayerInfo Player { get; set; } // 플레이어 프로필 선언
         public void NewPlayer(string name, Profile.Job job, string jobName) // 메인에서 플레이어 프로필을 초기화 하는 함수
         {
             Player = new Profile.PlayerInfo(name, job, jobName);
         }
 
-        public Item.ItemInfo PlayerInventory { get; set; } // 플레이어 인벤토리 불러오는 객체
-        public void NewInventory(Item.ItemType name, int index) // 메인에서 인벤토리를 초기화 하는 함수
+        public Item.InventoryInfo PlayerInventory { get; set; } // 플레이어 인벤토리 선언
+        public void NewInventory() // 메인에서 인벤토리를 초기화 하는 함수
         {
-            PlayerInventory = new Item.ItemInfo(name, index);
+            PlayerInventory = new Item.InventoryInfo();
         }
 
         public List<Item.ItemInfo> Inventory { get; private set; } = new List<Item.ItemInfo>();
@@ -35,6 +36,172 @@ namespace RtanRPG.RPG
         {
 
         }
+        public void LevelUp()
+        {
+            TypingText("green", "레벨업! ");
+            TypingText("", "능력치가 상승했다.");
+            Console.WriteLine();
+
+            Player.Level++;
+            switch (Player.PlayerJob)
+            {
+                case Profile.Job.Warrior:
+                    Player.Power += 3;
+                    Player.Defense += 2;
+                    Player.MaxHp += 6;
+                    Player.Hp += 6;
+                    break;
+
+                case Profile.Job.Mage:
+                    Player.Power += 5;
+                    Player.Defense++;
+                    Player.MaxHp += 3;
+                    Player.Hp += 3;
+                    break;
+
+                case Profile.Job.Thief:
+                    Player.Power += 4;
+                    Player.Defense += 2;
+                    Player.MaxHp += 4;
+                    Player.Hp += 4;
+                    break;
+            }
+        }
+
+        public void ChageStat(string stat, int value)
+        {
+            switch (stat)
+            {
+                case "MaxHp": // 최대체력
+                    if (value >= 0)
+                    {
+                        Player.MaxHp += value;
+                        TypingText("", "최대 체력이 ");
+                        TypingVar("blue", value);
+                        TypingText("", "만큼 올라갔다!");
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        Player.MaxHp += value;
+                        TypingText("", "최대 체력이 ");
+                        TypingVar("red", value);
+                        TypingText("", "만큼 하락됐다..");
+                        Console.WriteLine();
+                    }
+                    break;
+
+                case "Hp": // 체력
+                    if (value >= 0)
+                    {
+                        Player.Hp += value;
+                        if (Player.Hp >= Player.MaxHp)
+                        {
+                            Player.Hp = Player.MaxHp;
+                            TypingText("", "체력이 ");
+                            TypingText("blue", "최대치로");
+                            TypingText("", " 회복됐다!");
+                            Console.WriteLine();
+                        }
+                        else
+                        {
+                            TypingText("", "체력이 ");
+                            TypingVar("blue", value);
+                            TypingText("", "만큼 회복됐다!");
+                            Console.WriteLine();
+                        }
+                    }
+                    else
+                    {
+                        Player.MaxHp += value;
+                        if (Player.Hp >= 0)
+                        {
+                            TypingText("", "체력이 ");
+                            TypingVar("red", value);
+                            TypingText("", "만큼 감소했다..");
+                            Console.WriteLine();
+                        }
+                        else
+                        {
+                            EndGame();
+                        }
+                    }
+                    break;
+
+                case "Power": // 공격력
+                    if (value >= 0)
+                    {
+                        Player.Power += value;
+                        TypingText("", "공격력이 ");
+                        TypingVar("blue", value);
+                        TypingText("", "만큼 증가됐다!");
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        Player.Power += value;
+                        TypingText("", "공격력이 ");
+                        TypingVar("red", value);
+                        TypingText("", "만큼 감소됐다..");
+                        Console.WriteLine();
+                    }
+
+                    break;
+
+                case "Defense": // 방어력
+                    if (value >= 0)
+                    {
+                        Player.Defense += value;
+                        TypingText("", "방어력이 ");
+                        TypingVar("blue", value);
+                        TypingText("", "만큼 증가됐다!");
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        Player.Defense += value;
+                        TypingText("", "방어력이 ");
+                        TypingVar("red", value);
+                        TypingText("", "만큼 감소됐다..");
+                        Console.WriteLine();
+                    }
+
+                    break;
+
+                case "Coin":
+                    if (value >= 0)
+                    {
+                        Player.Coin += value;
+                        TypingText("yellow", "코인을 ");
+                        TypingVar("blue", value);
+                        TypingText("", "얻었다!");
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        Player.Coin += value;
+                        TypingText("yellow", "코인을 ");
+                        TypingVar("red", value);
+                        TypingText("", "잃었다..");
+                        Console.WriteLine();
+                    }
+
+                    break;
+
+                case "Exp":
+                    Player.Exp += value;
+                    TypingText("", "경험치를 ");
+                    TypingVar("green", value);
+                    TypingText("", "획득했다!");
+                    Console.WriteLine();
+                    ExpCalculate();
+                    break;
+
+                default:
+                    Console.WriteLine("유효하지 않은 입력.");
+                    break;
+            }
+        }
 
         public void NextMap() // 다음 맵갈때마다 실행 (턴+1)
         {
@@ -44,6 +211,45 @@ namespace RtanRPG.RPG
         public void EndGame() // 게임종료 함수
         {
             GameOver = false;
+        }
+
+        public void ExpCalculate()
+        {
+            int needLvlUp = 30 + (Player.Level - 1) * 20;
+            if (Player.Exp >= needLvlUp)
+            {
+                Player.Exp -= needLvlUp;
+                LevelUp();
+            }
+        }
+
+        public int rollDice()
+        {
+            Random random = new Random();
+            int diceNum;
+            if (Player.isAwe == false)
+            {
+                diceNum = random.Next(1, 6);
+                Console.WriteLine();
+                TypingText("", "주사위 결과 : ");
+                TypingVar("purple", diceNum);
+                Console.WriteLine();
+
+            }
+            else
+            {
+                diceNum = random.Next(3, 6);
+                TypingText("", "신의 ");
+                TypingText("red", "축복");
+                TypingText("", "이 함께하리..");
+                Console.WriteLine();
+                Thread.Sleep(1000);
+                
+                TypingText("", "주사위 결과 : ");
+                TypingVar("purple", diceNum);
+                Console.WriteLine();
+            }
+            return diceNum;
         }
     }
 }
