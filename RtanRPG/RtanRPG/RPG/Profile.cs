@@ -66,8 +66,7 @@ namespace RtanRPG.RPG
             }
             public void ShowStats()
             {
-                TypingText("", "상태 보기", 0);
-                Console.WriteLine();
+                Console.WriteLine("==== [상태보기] ====");
                 Console.WriteLine();
 
                 TypingText("", "레벨 : ", 0);
@@ -92,6 +91,7 @@ namespace RtanRPG.RPG
                 TypingText("", " Gold", 0);
                 Console.WriteLine();
                 Console.WriteLine();
+                Console.WriteLine("==================");
             }
         }
     }

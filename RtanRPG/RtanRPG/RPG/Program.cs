@@ -19,7 +19,6 @@ namespace RtanRPG.RPG
 
             GameManager game = new GameManager();
 
-
             while (selectLoop)
             {
                 bool nameSelect = true;
@@ -237,10 +236,11 @@ namespace RtanRPG.RPG
                     ItemToInven(game, Item.ItemType.Weapon, 3);
                     break;
             }
-            int TestSpeed = 0;
+            int TestSpeed = 50;
+            Console.Clear();
             TypingText("", "이 세상은 ", TestSpeed);
             Thread.Sleep(700);
-            TypingText("red", "확률의 신", TestSpeed);
+            TypingText("red", "운명의 신", TestSpeed);
             TypingText("", "의");
             Thread.Sleep(700);
             TypingText("", " 은총을 받는다는 전승이 있다.", TestSpeed);
@@ -329,10 +329,13 @@ namespace RtanRPG.RPG
             TypingText("", ".....", 400);
             Console.WriteLine();
             Console.WriteLine();
+
+            
             
             while (!game.GameOver)
             {
                 game.MainTitle();
+                game.DungeonTitle();
             }
         }
     }

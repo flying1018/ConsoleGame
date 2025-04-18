@@ -241,17 +241,18 @@ namespace RtanRPG.RPG
 
             public void ShowInventory()
             {
+                Console.Clear();
                 Console.WriteLine("==== [인벤토리] ====");
                 for (int i = 0; i < Inventory.Count; i++)
                 {
                     GameHelper.TypingHelper.TypingVar("", i + 1, 0);
-                    GameHelper.TypingHelper.TypingText("", ". ");
+                    GameHelper.TypingHelper.TypingText("", ". ",0);
                     GameHelper.TypingHelper.TypingVar("green", Inventory[i].Name, 0);
                     if(Inventory[i].Eq == true)
-                        GameHelper.TypingHelper.TypingText("red", "[E]");
-                    GameHelper.TypingHelper.TypingText("", " 가격 - ");
+                        GameHelper.TypingHelper.TypingText("red", "[E]",0);
+                    GameHelper.TypingHelper.TypingText("", " 가격 - ",0);
                     GameHelper.TypingHelper.TypingVar("yellow", Inventory[i].Cost, 0);
-                    GameHelper.TypingHelper.TypingText("", " Gold");
+                    GameHelper.TypingHelper.TypingText("", " Gold",0);
                     Console.WriteLine();
                 }
                 Console.WriteLine("==================");
