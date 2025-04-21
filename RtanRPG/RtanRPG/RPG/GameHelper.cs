@@ -33,6 +33,15 @@ namespace RtanRPG.RPG
             {
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
             }
+
+            public static void ColorCyan() // 하늘색 타이핑
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+            }
+            public static void ColorMagenta() // 하늘색 타이핑
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+            }
         }
 
         public static void SelectColor(string str)
@@ -56,6 +65,12 @@ namespace RtanRPG.RPG
                     break;
                 case "purple":
                     ColorHelper.ColorPurple();
+                    break;
+                case "cyan":
+                    ColorHelper.ColorCyan();
+                    break;
+                case "magenta":
+                    ColorHelper.ColorMagenta();
                     break;
                 default:
                     Console.ResetColor();
@@ -156,11 +171,6 @@ namespace RtanRPG.RPG
                         break;
                 }
             }
-            public static void InventoryItemInfo(Item.ItemInfo index)
-            {
-                
-            }
-
         }
     }
 }

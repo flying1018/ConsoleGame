@@ -5,13 +5,13 @@ namespace RtanRPG.RPG
 {
     internal class GameManager
     {
-        public Profile.PlayerInfo Player;// 플레이어 프로필 선언
+        public Profile.PlayerInfo? Player;// 플레이어 프로필 선언
         public void NewPlayer(string name, Profile.Job job, string jobName) // 메인에서 플레이어 프로필을 초기화 하는 함수
         {
             Player = new Profile.PlayerInfo(name, job, jobName);
         }
 
-        public Item.InventoryInfo PlayerInventory; // 플레이어 인벤토리 선언
+        public Item.InventoryInfo? PlayerInventory; // 플레이어 인벤토리 선언
         public void NewInventory() // 메인에서 인벤토리를 초기화 하는 함수
         {
             PlayerInventory = new Item.InventoryInfo();
@@ -21,16 +21,16 @@ namespace RtanRPG.RPG
 
         public int Turn = 0; // 턴 저장 변수
 
-        public int[]? mapLocation; 
+        public int[]? mapLocation; // 맵 정보 보관하는 배열
 
         public bool GameOver = false; // 게임루프 관리하는 불리언 변수
         public int[] MakeMap() // 맵생성 함수
         {
-            int[] arry = new int[3];
+            int[] arry = new int[4];
 
             Random random = new Random();
 
-            for (int j = 1; j < 4; j++)
+            for (int j = 0; j < 4; j++)
             {
                 int k = random.Next(0, 100);
                 if (Turn == 4 || Turn == 9 || Turn == 14)
@@ -39,29 +39,29 @@ namespace RtanRPG.RPG
                 }
                 else if (Turn < 9) // 초반부
                 {
-                    if (k < 35)
-                        arry[j - 1] = Map.MapDB.mapDB[1].Index; // 몬스터맵 35%
-                    else if (35 <= k && k < 50)
-                        arry[j - 1] = Map.MapDB.mapDB[2].Index; // 상점 15%
-                    else if (50 <= k && k < 65)
-                        arry[j - 1] = Map.MapDB.mapDB[3].Index; // 휴식 15%
-                    else if (65 <= k && k < 85)
-                        arry[j - 1] = Map.MapDB.mapDB[4].Index; // 이벤트 20%
-                    else if (85 <= k)
-                        arry[j - 1] = Map.MapDB.mapDB[5].Index; // 시련 15%
+                    if (k < 40)
+                        arry[j] = Map.MapDB.mapDB[1].Index; // 몬스터맵 40%
+                    else if (40 <= k && k < 55)
+                        arry[j] = Map.MapDB.mapDB[2].Index; // 상점 15%
+                    else if (55 <= k && k < 70)
+                        arry[j] = Map.MapDB.mapDB[3].Index; // 휴식 15%
+                    else if (70 <= k && k < 90)
+                        arry[j] = Map.MapDB.mapDB[4].Index; // 이벤트 20%
+                    else if (90 <= k)
+                        arry[j] = Map.MapDB.mapDB[5].Index; // 시련 10%
                 }
-                else
+                else // 후반부
                 {
-                    if (k < 25)
-                        arry[j - 1] = Map.MapDB.mapDB[1].Index; // 몬스터맵 25%
-                    else if (25 <= k && k < 45)
-                        arry[j - 1] = Map.MapDB.mapDB[2].Index;  // 상점 20%
-                    else if (45 <= k && k < 65)
-                        arry[j - 1] = Map.MapDB.mapDB[3].Index; // 휴식 20%
-                    else if (65 <= k && k < 75)
-                        arry[j - 1] = Map.MapDB.mapDB[4].Index; // 랜덤 이벤트("?") 10%
-                    else if (75 <= k)
-                        arry[j - 1] = Map.MapDB.mapDB[5].Index; // 시련 25%
+                    if (k < 30)
+                        arry[j] = Map.MapDB.mapDB[1].Index; // 몬스터맵 30%
+                    else if (30 <= k && k < 45)
+                        arry[j] = Map.MapDB.mapDB[2].Index;  // 상점 15%
+                    else if (45 <= k && k < 60)
+                        arry[j] = Map.MapDB.mapDB[3].Index; // 휴식 15%
+                    else if (60 <= k && k < 80)
+                        arry[j] = Map.MapDB.mapDB[4].Index; // 이벤트 20%
+                    else if (80 <= k)
+                        arry[j] = Map.MapDB.mapDB[5].Index; // 시련 20%
                 }
             }
 
@@ -71,10 +71,26 @@ namespace RtanRPG.RPG
         public void NextMap() // 다음 맵갈때마다 실행 (턴+1)
         {
             Turn++;
-            TypingText("", "현재 : ");
-            TypingVar("yellow", Turn);
-            TypingText("", "층....", 400);
+            TypingText("", "=============", 0);
             Console.WriteLine();
+
+            TypingText("", "당신은 ", 100);
+            Thread.Sleep(1000);
+            TypingText("", "마을에 나와 던전으로 향했다.", 100);
+            Console.WriteLine();
+            Console.WriteLine();
+            Thread.Sleep(1000);
+
+            TypingText("", "  현재 : ", 0);
+            Thread.Sleep(1000);
+            TypingVar("yellow", Turn);
+            TypingText("", "층", 0);
+            Console.WriteLine();
+
+            TypingText("", "=============", 0);
+            Console.WriteLine();
+            Console.WriteLine();
+            Thread.Sleep(1000);
         }
 
         public void EndGame() // 게임종료 함수
@@ -102,43 +118,99 @@ namespace RtanRPG.RPG
             return index;
         }
 
-        public void BasicChoice() // 콘솔 꾸미기
+        public string YesOrNo() // Yes or No 반환하는 함수
+        {
+            while (true)
+            {
+                TypingText("", "(Y/N) 입력 : ");
+                string input = Console.ReadLine();
+                Console.WriteLine();
+
+                if (input == "y" || input == "Y")
+                {
+                    return "y";
+                }
+                else if (input == "n" || input == "N")
+                {
+                    return "n";
+                }
+                else
+                {
+                    TypingText("red", "Y/N");
+                    TypingText("", "를 입력 해주십시오");
+                    Console.WriteLine();
+                    Console.WriteLine();
+                }
+            }
+        }
+        public void MainChoice() // 콘솔 꾸미기 (메인화면)
         {
             Console.Clear();
-            TypingText("white", "┌──────────────┬───────────────┬───────────────┐", 0);
+            TypingText("cyan", "┌──────────────┬───────────────┬───────────────┬───────────────┐", 0);
             Console.WriteLine();
             Console.WriteLine();
-            TypingText("white", "│   1. 상태창  │  2. 인벤토리  │  3. 던전 입장 │", 0);
+            TypingText("cyan", "│   1. 상태창  │  2. 인벤토리  │  3. 마을 상점 │  4. 던전 입장 ", 0);
             Console.WriteLine();
             Console.WriteLine();
-            TypingText("white", "└──────────────┴───────────────┴───────────────┘", 0);
+            TypingText("cyan", "└──────────────┴───────────────┴───────────────┴───────────────┘", 0);
             Console.WriteLine();
             Console.WriteLine();
         }
 
-        public void DungeonChoice(int[] mapLocation) // 콘솔 꾸미기
+        public void DungeonChoice(int[] mapLocation) // 콘솔 꾸미기 (던전)
         {
             Console.Clear();
-            TypingText("white", "┌──────────────┬───────────────┬───────────────┐", 0);
+            TypingText("cyan", "=========================================", 0);
             Console.WriteLine();
             Console.WriteLine();
-            TypingText("white", "│   1. ", 0);
-            TypingVar("white", Map.MapDB.mapDB[mapLocation[0]].Name);
-            TypingText("white", "   │  2. ");
-            TypingVar("white", Map.MapDB.mapDB[mapLocation[1]].Name);
-            TypingText("white", "   │  3. ");
-            TypingVar("white", Map.MapDB.mapDB[mapLocation[2]].Name);
-            TypingText("white", "  │ ");
+            TypingText("cyan", "   1. ", 0);
+            TypingVar("cyan", Map.MapDB.mapDB[mapLocation[0]].Name);
+            TypingText("cyan", "   2. ");
+            TypingVar("cyan", Map.MapDB.mapDB[mapLocation[1]].Name);
+            TypingText("cyan", "   3. ");
+            TypingVar("cyan", Map.MapDB.mapDB[mapLocation[2]].Name);
+            TypingText("cyan", "   4. ");
+            TypingVar("cyan", Map.MapDB.mapDB[mapLocation[3]].Name);
+            TypingText("cyan", "   ");
             Console.WriteLine();
             Console.WriteLine();
-            TypingText("white", "└──────────────┴───────────────┴───────────────┘", 0);
+            TypingText("cyan", "=========================================", 0);
             Console.WriteLine();
             Console.WriteLine();
         }
 
         public void MainTitle()  // 게임 메인화면
         {
-            BasicChoice();
+            MainChoice();
+            TypingText("", "원하는 선택지를 입력 해주세요(1~4)");
+            Console.WriteLine();
+            TypingText("", "숫자 입력 : ");
+
+            int playerChoice = WhatNum(1, 4);
+
+            switch (playerChoice)
+            {
+                case 1:
+                    ShowPlayerStats();
+                    break;
+                case 2:
+                    ShowPlayerInventory();
+                    break;
+                case 3:
+                    TownShop();
+                    break;
+                case 4:
+                    DungeonStart();
+                    break;
+            }
+        }
+
+        public void DungeonTitle() // 던전 메인화면
+        {
+            Console.Clear();
+            DungeonChoice(mapLocation);
+            TypingText("", "1.스탯 / 2.인벤토리 / 3.던전 진입");
+            Console.WriteLine();
             TypingText("", "원하는 선택지를 입력 해주세요(1~3)");
             Console.WriteLine();
             TypingText("", "숫자 입력 : ");
@@ -159,20 +231,10 @@ namespace RtanRPG.RPG
             }
         }
 
-        public void DungeonTitle() // 던전 메인화면
-        {
-            DungeonChoice(mapLocation);
-            TypingText("", "원하는 선택지를 입력 해주세요(1~3)");
-            Console.WriteLine();
-            TypingText("", "숫자 입력 : ");
-
-            int playerChoice = WhatNum(1, 3);
-        }
-
         public void ShowPlayerInventory() // 플레이어 인벤토리 표시 
         {
             PlayerInventory.ShowInventory();
-            GameHelper.TypingHelper.TypingText("", "1 : 메인화면\n2 : 장비변경\n3 : 장비 정보확인");
+            GameHelper.TypingHelper.TypingText("", "1 : 돌아가기\n2 : 장비변경\n3 : 장비 정보확인");
             Console.WriteLine();
             GameHelper.TypingHelper.TypingText("", "숫자 입력 : ");
             int playerChoice = WhatNum(1, 3);
@@ -180,7 +242,10 @@ namespace RtanRPG.RPG
             switch (playerChoice)
             {
                 case 1:
-                    MainTitle();
+                    if (Player.isDungeon == false)
+                        MainTitle();
+                    else if (Player.isDungeon == true)
+                        DungeonTitle();
                     break;
                 case 2:
                     ChageItem();
@@ -193,14 +258,17 @@ namespace RtanRPG.RPG
         public void ShowPlayerStats() // 플레이어 스탯창 표시
         {
             Player.ShowStats();
-            TypingText("", "1 : 메인화면\n2 : 인벤토리");
+            TypingText("", "1 : 돌아가기\n2 : 인벤토리");
             Console.WriteLine();
             TypingText("", "숫자 입력 : ");
             int playerChoice = WhatNum(1, 2);
             switch (playerChoice)
             {
                 case 1:
-                    MainTitle();
+                    if (Player.isDungeon == false)
+                        MainTitle();
+                    else if (Player.isDungeon == true)
+                        DungeonTitle();
                     break;
                 case 2:
                     ShowPlayerInventory();
@@ -597,8 +665,15 @@ namespace RtanRPG.RPG
             }
         }
 
-        public int RollDice()
+        public int RollDice() // 주사위 굴러가기
         {
+            Console.WriteLine();
+            TypingText("", "던전에 진입하자 나를 저울질 하는듯한 ");
+            TypingText("yellow", "주사위");
+            TypingText("", "가 굴러간다");
+            Console.WriteLine();
+            Thread.Sleep(1000);
+
             Random random = new Random();
             int diceNum;
             if (Player.isAwe == false)
@@ -705,39 +780,28 @@ namespace RtanRPG.RPG
             return diceNum;
         }
 
-        public Events.StartEvent[] RandomEvent(string eventType) // 이벤트 랜덤추출
+        public Events.StartEvent[] RandomStartEvent() // 이벤트 랜덤추출
         {
             Random random = new Random();
 
-            switch (eventType)
+            int[] ranEvent = { -1, -2, -3 };
+            Events.StartEvent[] Choice = { Events.StartEvent.Belliever, Events.StartEvent.Humanism, Events.StartEvent.Warmonger };
+
+            for (int i = 0; i < 3; i++)
             {
-                case "Start":
-                    int[] ranEvent = { -1, -2, -3 };
-                    Events.StartEvent[] Choice = { Events.StartEvent.Belliever, Events.StartEvent.Humanism, Events.StartEvent.Warmonger };
+                do
+                {
+                    ranEvent[i] = random.Next(1, 6);
+                    Choice[i] = (Events.StartEvent)ranEvent[i];
+                } while (ranEvent[0] == ranEvent[1] || ranEvent[1] == ranEvent[2] || ranEvent[0] == ranEvent[2]);
 
-                    for (int i = 0; i < 3; i++)
-                    {
-                        do
-                        {
-                            ranEvent[i] = random.Next(1, 6);
-                            Choice[i] = (Events.StartEvent)ranEvent[i];
-                        } while (ranEvent[0] == ranEvent[1] || ranEvent[1] == ranEvent[2] || ranEvent[0] == ranEvent[2]);
-
-                        TypingVar("", i + 1);
-                        TypingText("", ":");
-                        TypingVar("", Events.startEvent[Choice[i]]);
-                        Console.WriteLine();
-                        Console.WriteLine();
-                    }
-                    return new Events.StartEvent[] { Choice[0], Choice[1], Choice[2] };
-
-                case "RandomRoom":
-                    return null;
-
-                default:
-                    return null;
-
+                TypingVar("", i + 1);
+                TypingText("", ":");
+                TypingVar("", Events.startEvent[Choice[i]]);
+                Console.WriteLine();
+                Console.WriteLine();
             }
+            return new Events.StartEvent[] { Choice[0], Choice[1], Choice[2] };
         }
 
         public void AddItem(GameManager game, Item.ItemType type, int index)
@@ -751,17 +815,15 @@ namespace RtanRPG.RPG
                 Inventory.RemoveAt(index);
         }
 
-        public void ShowMap(int luck)
+        public void TownShop()
         {
 
         }
 
         public void DungeonStart()  // 던전 진입시 사용
         {
+            Player.isDungeon = true;
             Console.Clear();
-            TypingText("", "당신은 던전에 나아간다...", 200);
-            Console.WriteLine();
-            Console.WriteLine();
             NextMap();
 
             int luck = RollDice();

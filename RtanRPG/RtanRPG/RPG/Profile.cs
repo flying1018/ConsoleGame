@@ -26,6 +26,7 @@ namespace RtanRPG.RPG
             public bool isHurt;
             public bool isAwe;
             public bool isCeleb;
+            public bool isDungeon;
             public PlayerInfo(string name, Job playerJob, string textJob)
             {
                 Name = name;
@@ -37,6 +38,7 @@ namespace RtanRPG.RPG
                 isHurt = false;
                 isAwe = false;
                 isCeleb = false;
+                isDungeon = false;
 
                 switch (playerJob) // 직업별 능력치 배분
                 {

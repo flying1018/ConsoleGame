@@ -10,12 +10,15 @@ namespace RtanRPG.RPG
         static void Main()
         {
             Console.Title = "Rtan RPG";
-            
+
             bool selectLoop = true; // 캐릭터 생성 관리 불리언 변수
 
             string playerName = "";
             Profile.Job playerJob = Profile.Job.Warrior; // 초기 세팅
             string textJob = "";
+            string input = "";
+            int inputNum = -1;
+
 
             GameManager game = new GameManager();
 
@@ -38,33 +41,22 @@ namespace RtanRPG.RPG
                     TypingText($"", "당신의 이름은 \'");
                     TypingVar("green", playerName);
                     TypingText("", "\' 맞습니까?");
+                    Console.WriteLine();
 
-                    while (true)
+                    input = game.YesOrNo();
+
+                    if (input == "y" || input == "Y")
                     {
-                        Console.WriteLine();
-                        TypingText("", "(Y/N) 입력 : ");
-                        string input = Console.ReadLine();
-                        Console.WriteLine();
-
-                        if (input == "y" || input == "Y")
-                        {
-                            TypingText("", "환영합니다 ");
-                            TypingVar("green", playerName);
-                            TypingText("", " 모험가여...");
-                            break;
-                        }
-                        else if (input == "n" || input == "N")
-                        {
-                            nameSelect = false;
-                            Console.Clear();
-                            break;
-                        }
-                        else
-                        {
-                            TypingText("red", "Y/N");
-                            TypingText("", "를 입력 해주십시오");
-                        }
+                        TypingText("", "환영합니다 ");
+                        TypingVar("green", playerName);
+                        TypingText("", " 모험가여...");
                     }
+                    else if (input == "n" || input == "N")
+                    {
+                        nameSelect = false;
+                        Console.Clear();
+                    }
+                    input = "";
                 } while (!nameSelect);
                 Console.WriteLine();
 
@@ -100,30 +92,14 @@ namespace RtanRPG.RPG
                     TypingText("yellow", "변칙적인 플레이");
                     TypingText("", "가 특징이다.");
                     Console.WriteLine();
+                    Console.WriteLine();
 
-                    int jobIndex = 0;
-                    while (true)
-                    {
-                        Console.Write("직업(1~3) 입력 : ");
-                        string input = Console.ReadLine();
-                        Console.Clear();
+                    TypingText("", "원하는 직업 선택 (1~3) : ");
 
-                        int inputNum = -1;
-                        bool isIndex = int.TryParse(input, out inputNum);
-                        if (1 <= inputNum && inputNum <= 3)
-                        {
-                            jobIndex = inputNum;
-                            break;
-                        }
-                        else
-                        {
-                            TypingText("red", "유효한 ");
-                            TypingText("", "숫자를 입력 해주십시오");
-                            Console.WriteLine();
-                        }
-                    }
+                    inputNum = game.WhatNum(1, 3);
+                    Console.Clear();
 
-                    switch (jobIndex)
+                    switch (inputNum)
                     {
                         case 1:
                             playerJob = Profile.Job.Warrior;
@@ -145,38 +121,28 @@ namespace RtanRPG.RPG
                             TypingText("", ", 게임을 종료합니다.");
                             return;
                     }
+                    inputNum = -1;
 
                     TypingText($"", "당신이 선택한 직업은 \'");
                     TypingVar("green", textJob);
                     TypingText("", "\' 맞습니까?");
+                    Console.WriteLine();
 
-                    while (true)
+                    input = game.YesOrNo();
+
+                    if (input == "y")
                     {
+                        TypingText("", "당신은 \'");
+                        TypingVar("blue", textJob);
+                        TypingText("", "\' 직업을 선택 하셨습니다 모험가여...");
                         Console.WriteLine();
-                        TypingText("", "(Y/N) 입력 : ");
-                        string check = Console.ReadLine();
-
-                        Console.WriteLine();
-
-                        if (check == "y" || check == "Y")
-                        {
-                            TypingText("", "당신은 \'");
-                            TypingVar("blue", textJob);
-                            TypingText("", "\' 직업을 선택 하셨습니다 모험가여...");
-                            break;
-                        }
-                        else if (check == "n" || check == "N")
-                        {
-                            jobSelect = false;
-                            Console.Clear();
-                            break;
-                        }
-                        else
-                        {
-                            TypingText("red", "Y/N");
-                            TypingText("", "를 입력 해주십시오");
-                        }
                     }
+                    else if (input == "n")
+                    {
+                        jobSelect = false;
+                        Console.Clear();
+                    }
+                    input = "";
                 } while (!jobSelect);
 
                 Console.WriteLine();
@@ -192,30 +158,19 @@ namespace RtanRPG.RPG
 
                 game.Player.ShowStats();
                 Console.WriteLine();
-                while (true)
-                {
-                    TypingText("", "(Y/N) 입력 : ");
-                    string input = Console.ReadLine();
-                    Console.Clear();
 
-                    if (input == "y" || input == "Y")
-                    {
-                        selectLoop = false;
-                        TypingText("", "잠시후 게임이 시작합니다");
-                        TypingText("", "....", 400);
-                        break;
-                    }
-                    else if (input == "n" || input == "N")
-                    {
-                        Console.Clear();
-                        break;
-                    }
-                    else
-                    {
-                        TypingText("red", "Y/N");
-                        TypingText("", "를 입력 해주십시오");
-                    }
+                input = game.YesOrNo(); // YorN 선택
+                if (input == "y")
+                {
+                    selectLoop = false;
+                    TypingText("", "잠시후 게임이 시작합니다");
+                    TypingText("", "....", 400);
                 }
+                else if (input == "n")
+                {
+                    Console.Clear();
+                }
+                input = "";
             }
 
             Console.WriteLine();
@@ -237,101 +192,86 @@ namespace RtanRPG.RPG
                     break;
             }
             int TestSpeed = 50;
-            Console.Clear();
-            TypingText("", "이 세상은 ", TestSpeed);
-            Thread.Sleep(700);
-            TypingText("red", "운명의 신", TestSpeed);
-            TypingText("", "의");
-            Thread.Sleep(700);
-            TypingText("", " 은총을 받는다는 전승이 있다.", TestSpeed);
-            Console.WriteLine();
-            Console.WriteLine();
-            Thread.Sleep(1200);
-
-            TypingText("", "하지만,", TestSpeed);
-            Thread.Sleep(700);
-            TypingText("", " 여러 나라들이 자국의 이익을 위해 전쟁을 하며\n", TestSpeed);
-            Thread.Sleep(700);
-            TypingText("", "마계의 존재들이 세상을 뒤엎을 계획을 꾀하는 지금.", TestSpeed);
-            Thread.Sleep(700);
-            Console.WriteLine();
-            Console.WriteLine();
-            Thread.Sleep(1200);
-
-            TypingText("", "사람들은 현 시대를 ", TestSpeed);
-            Thread.Sleep(700);
-            TypingText("yellow", "\'군웅할거\'", TestSpeed);
-            TypingText("", " 시대라 말하고 있다..", TestSpeed);
-            Console.WriteLine();
-            Console.WriteLine();
-
-            Thread.Sleep(1000);
-            TypingText("", ".....", 400);
-            Console.WriteLine();
-            Console.WriteLine();
-
-            TypingText("", "?? : \"반갑네 ", TestSpeed);
-            TypingVar("green", game.Player.Name);
-            TypingText("", ".\"");
-            Console.WriteLine();
-            Thread.Sleep(700);
-
-            TypingText("", "?? : \"자네가 이번에 새로 등록한 모험가구먼.\"", TestSpeed);
-            Console.WriteLine();
-            Console.WriteLine();
-            Thread.Sleep(1500);
-
-            TypingText("", "르탄 : \"그리 경계하지 말게나. 난 르탄, 모험가 길드의 길드장이지.\"", TestSpeed);
-            Console.WriteLine();
-            Console.WriteLine();
-            Thread.Sleep(1000);
-
-            TypingText("", "-신전 스토리 생략-");
-            Console.WriteLine();
-            Console.WriteLine();
-            Thread.Sleep(1000);
-
-            TypingText("", "사제 : \'여행에 떠나기전, ", TestSpeed);
-            Thread.Sleep(700);
-            TypingText("", "네가 원하는 ", TestSpeed);
-            TypingText("yellow", "\'신의 축복\'", TestSpeed);
-            TypingText("", "을 선택해라 모험가여.", TestSpeed);
-            Console.WriteLine();
-            Console.WriteLine();
-            Thread.Sleep(1500);
-
-            Events.StartEvent[] StartEventSelect = game.RandomEvent("Start");
-
-
-            while (true)
+            bool gameSkip = true;
+            if (!gameSkip)
             {
-                Console.Write("숫자(1~3) 입력 : ");
-                string input = Console.ReadLine();
                 Console.Clear();
+                TypingText("", "이 세상은 ", TestSpeed);
+                Thread.Sleep(700);
+                TypingText("red", "운명의 신", TestSpeed);
+                TypingText("", "의");
+                Thread.Sleep(700);
+                TypingText("", " 은총을 받는다는 전승이 있다.", TestSpeed);
+                Console.WriteLine();
+                Console.WriteLine();
+                Thread.Sleep(1200);
 
-                int inputNum = -1;
-                bool isIndex = int.TryParse(input, out inputNum);
-                if (1 <= inputNum && inputNum <= 3)
-                {
-                    Events.StartEvent playerStartEvent = StartEventSelect[inputNum - 1];
-                    Events.ApplyStartEvent(game, playerStartEvent);
-                    break;
-                }
-                else
-                {
-                    TypingText("red", "유효한 ");
-                    TypingText("", "숫자를 입력 해주십시오");
-                    Console.WriteLine();
-                }
+                TypingText("", "하지만,", TestSpeed);
+                Thread.Sleep(700);
+                TypingText("", " 여러 나라들이 자국의 이익을 위해 전쟁을 하며\n", TestSpeed);
+                Thread.Sleep(700);
+                TypingText("", "마계의 존재들이 세상을 뒤엎을 계획을 꾀하는 지금.", TestSpeed);
+                Thread.Sleep(700);
+                Console.WriteLine();
+                Console.WriteLine();
+                Thread.Sleep(1200);
+
+                TypingText("", "사람들은 현 시대를 ", TestSpeed);
+                Thread.Sleep(700);
+                TypingText("yellow", "\'군웅할거\'", TestSpeed);
+                TypingText("", "의 시대라 말하고 있다..", TestSpeed);
+                Console.WriteLine();
+                Console.WriteLine();
+
+                Thread.Sleep(1000);
+                TypingText("", ".....", 400);
+                Console.WriteLine();
+                Console.WriteLine();
+
+                TypingText("", "?? : \"반갑네 ", TestSpeed);
+                TypingVar("green", game.Player.Name);
+                TypingText("", ".\"");
+                Console.WriteLine();
+                Thread.Sleep(700);
+
+                TypingText("", "?? : \"자네가 이번에 새로 등록한 모험가구먼.\"", TestSpeed);
+                Console.WriteLine();
+                Console.WriteLine();
+                Thread.Sleep(1500);
+
+                TypingText("", "르탄 : \"그리 경계하지 말게나. 난 르탄, 모험가 길드의 길드장이지.\"", TestSpeed);
+                Console.WriteLine();
+                Console.WriteLine();
+                Thread.Sleep(1000);
+
+                TypingText("", "-신전 스토리 생략-");
+                Console.WriteLine();
+                Console.WriteLine();
+                Thread.Sleep(1000);
+
+                TypingText("", "사제 : \'여행에 떠나기전, ", TestSpeed);
+                Thread.Sleep(700);
+                TypingText("", "네가 원하는 ", TestSpeed);
+                TypingText("yellow", "\'신의 축복\'", TestSpeed);
+                TypingText("", "을 선택해라 모험가여.", TestSpeed);
+                Console.WriteLine();
+                Console.WriteLine();
+                Thread.Sleep(1500);
             }
+
+            Events.StartEvent[] StartEventSelect = game.RandomStartEvent();
+
+            inputNum = game.WhatNum(1, 3);
+            Events.StartEvent playerStartEvent = StartEventSelect[inputNum - 1];
+            Events.ApplyStartEvent(game, playerStartEvent);
             Console.WriteLine();
             Console.WriteLine();
             TypingText("", ".....", 400);
             Console.WriteLine();
             Console.WriteLine();
 
-            
-            
+
+
             while (!game.GameOver)
             {
                 game.MainTitle();
