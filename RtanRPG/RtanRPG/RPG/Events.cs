@@ -145,5 +145,10 @@ namespace RtanRPG.RPG
                     break;
             }
         }
+    
+        public class MapEnent
+        {
+            
+        }
     }
 }

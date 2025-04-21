@@ -34,24 +34,28 @@ namespace RtanRPG.RPG
         {
             public string Name;
             public Types.Type Type;
+            public int MaxHp;
             public int Hp;
             public int Power;
             public int Defense;
             public int GiveCoin;
             public int GiveExp;
+            public int Difficulty;
             public bool Special;
 
-            public MonsterInfo(string name, Types.Type type, int hp, int power, int defense,
+            public MonsterInfo(string name, Types.Type type, int maxhp, int power, int defense,
             int giveCoin, int giveExp, bool special)
             {
                 Name = name;
-                Type = type;
-                Hp = hp;
+                Type = Types.Type.normal;
+                MaxHp = maxhp;
                 Power = power;
                 Defense = defense;
-                GiveCoin = giveCoin;
-                GiveExp = giveExp;
-                Special = special;
+                GiveCoin = 1;
+                GiveExp = 1;
+                Special = false;
+                Difficulty = 1;
+                Hp = MaxHp;
             }
         }
         public class MonsterDB
@@ -115,5 +119,28 @@ namespace RtanRPG.RPG
                 {7, new MonsterInfo(bossM[6], Types.Type.normal, 1000, 15, 15, 0, 0, true )}, // 신
             };
         }
+
+        // public Object SeachMonDB(int turn, int luck, int mapLocation, bool hidden)
+        // {
+        //     Random random = new Random();
+        //     if (turn < 4)
+        //     {
+        //         if (luck == 6)
+        //         {
+                    
+        //         }
+        //     }
+
+        // }
     }
 }
+
+            // public Types.Type Type;
+            // public int MaxHp;
+            // public int Hp;
+            // public int Power;
+            // public int Defense;
+            // public int GiveCoin;
+            // public int GiveExp;
+            // public int Difficulty;
+            // public bool Special;

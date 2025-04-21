@@ -3,12 +3,17 @@ using static RtanRPG.RPG.GameHelper.ItemHelper;
 
 namespace RtanRPG.RPG
 {
-    internal class GameManager
+    internal class GameManager 
     {
         public Profile.PlayerInfo? Player;// 플레이어 프로필 선언
         public void NewPlayer(string name, Profile.Job job, string jobName) // 메인에서 플레이어 프로필을 초기화 하는 함수
         {
             Player = new Profile.PlayerInfo(name, job, jobName);
+        }
+        public Data.MonsterInfo? Enemy;
+        public void NewEnemy(int Difficulty, int mapLocation, bool hidden)
+        {
+           // Enemy = new Data.MonsterInfo();
         }
 
         public Item.InventoryInfo? PlayerInventory; // 플레이어 인벤토리 선언
@@ -20,6 +25,8 @@ namespace RtanRPG.RPG
         public List<Item.ItemInfo> Inventory { get; private set; } = new List<Item.ItemInfo>();
 
         public int Turn = 0; // 턴 저장 변수
+        public int Difficulty = 1;
+
 
         public int[]? mapLocation; // 맵 정보 보관하는 배열
 
